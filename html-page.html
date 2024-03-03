@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="HTML Samples" />
+  <link rel="stylesheet" href="./styles.css" />
+  <title>HTML Samples</title>
+</head>
+<body>
+  <nav id="navbar">
+    <header>HTMl Samples</header>
+    <ul>
+        <li><a class="nav-link" href="#Survey Form">Survey Form</a></li>
+        <li><a class="nav-link" href="#Tribute Page">Tribute Page</a></li>
+        <li><a class="nav-link" href="#Tech Doc Page">Tech Doc Page</a></li>
+        <li><a class="nav-link" href="#Product Landing Page">Product Landing Page</a></li>
+        <li><a class="nav-link" href="#Personal Portfolio Webpage">Personal Portfolio Webpage</a></li>
+    </ul>
+  </nav>
+  
+  <main id="main-doc">
+    <section class="main-section" id="Title">
+      <header>HTMl Samples</header>
+    </section>
+    <hr>
+    <section class="main-section" id="Survey Form">
+      <header>Survey Form</header>
+      <article>
+        
+        <h3>HTML File</h3>
+        <xmp>
+            <h1 id="title">Hotel Survey Form</h1>
+            <p id="description">Thank you for taking the time to help us improve the our service</p>
+            <form id="survey-form" method="post" action="/">
+
+                <fieldset>
+                    <label id="name-label" for="name">Name<input id="name" name="name" type="text"
+                            placeholder="Enter your name" required /></label>
+                    <label id="email-label" for="email">Email<input id="email" name="email" type="email"
+                            placeholder="Enter your Email" required /></label>
+                    <label id="number-label" for="number">Age(optional)<input id="number" type="number"
+                            name="age" min="13" max="120" placeholder="Enter your age" /></label>
+                    <label id="employ-status" name="employ-status" for="dropdown">What is your employ status?
+                        <select id="dropdown" name="dropdown">
+                            <option value="">(Select an option)</option>
+                            <option value="1">Full time job</option>
+                            <option value="2">Part time job</option>
+                            <option value="3">Self employment</option>
+                            <option value="4">Other</option>
+                        </select>
+                    </label>
+                </fieldset>
+                <fieldset>
+                    <label for="recommend">Would you recommend our hotel to a friend?</label>
+                    <label for="definitely"><input id="definitely" value="definitely" type="radio"
+                            name="recommend" class="inline" /> Definitely</label>
+                    <label for="maybe"><input id="maybe" value="maybe" type="radio" name="recommend"
+                            class="inline" /> Maybe</label>
+                    <label for="not-sure"><input id="not-sure" value="not-sure" type="radio" name="recommend"
+                            class="inline" /> Not sure</label>
+                </fieldset>
+
+                <fieldset>
+                    <label id="better-thing" name="better-thing" for="dp-better">Please tell us what could have
+                        been better:
+                        <select id="dp-better" name="dp-better">
+                            <option value="">Select an option</option>
+                            <option value="1">Comfort of bed</option>
+                            <option value="2">In-room entertainment(TV,Radio,Phone,etc)</option>
+                            <option value="3">Minibar</option>
+                            <option value="4">Quality of bathroom</option>
+                            <option value="5">Other</option>
+                        </select>
+                    </label>
+                </fieldset>
+
+                <fieldset>
+                    <label>What would you like to see improved?(Check all that apply)</label>
+                    <label for="room-facility"><input id="room-facility" type="checkbox" name="room-facility"
+                            value="room-facility" class="inline" />Room facilities</label>
+                    <label for="restaurant-facility"><input id="restaurant-facility" type="checkbox"
+                            name="restaurant-facility" value="restaurant-facility" class="inline" />Restaurant
+                        facilities</label>
+                    <label for="meeting-facility"><input id="meeting-facility" type="checkbox"
+                            name="meeting -facility" value="meeting-facility" class="inline" />Meeting
+                        facilities</label>
+                    <label for="public-facility"><input id="public-facility" type="checkbox"
+                            name="public-facility" value="public-facility" class="inline" />Public
+                        facilities</label>
+                    <label for="room-service"><input id="room-service" type="checkbox" name="room-service"
+                            value="room-service" class="inline" />Room service</label>
+                    <label for="restaurant-service"><input id="restaurant-service" type="checkbox"
+                            name="restaurant-service" value="restaurant-service" class="inline" />Restaurant
+                        service</label>
+                    <label for="centre-service"><input id="centre-service" type="checkbox" name="centre-service"
+                            value="centre-service" class="inline" />Centre service</label>
+                    <label for="hotel-safety"><input id="hotel-safety" type="checkbox" name="hotel-safety"
+                            value="hotel-safety" class="inline" />Hotel safety</label>
+
+                </fieldset>
+
+                <fieldset>
+                    <label>Any comments or suggestions?
+                        <textarea id="comment" name="bio" rows="3" cols="30"
+                            placeholder="Enter your comment here..."></textarea>
+                    </label>
+
+                </fieldset>
+                <input id="submit" type="submit" value="Submit" />
+            </form>
+        </xmp>
+        <h3>CSS File</h3>
+        <xmp>
+            body {
+            width: 100%;
+            height: 100vh;
+            margin: 0;
+            background-color: #1b1b32;
+            color: #f5f6f7;
+            font-family: Tahoma;
+            font-size: 16px;
+            }
+            h1, p {
+            margin: 1em auto;
+            text-align: center;
+            }
+
+            form {
+            width: 60vw;
+            max-width: 500px;
+            min-width: 300px;
+            margin: 0 auto;
+            padding-bottom: 2em;
+            }
+
+            fieldset {
+            border: none;
+            padding: 2rem 0;
+            border-bottom: 3px solid #3b3b4f;
+            }
+
+            fieldset:last-of-type {
+            border-bottom: none;
+            }
+
+            label {
+            display: block;
+            margin: 0.5rem 0;
+            }
+
+            input,
+            textarea,
+            select {
+            margin: 10px 0 0 0;
+            width: 100%;
+            min-height: 2em;
+            }
+
+            input, textarea {
+            background-color: #0a0a23;
+            border: 1px solid #0a0a23;
+            color: #ffffff;
+            }
+
+            .inline {
+            width: unset;
+            margin: 0 0.5em 0 0;
+            vertical-align: middle;
+            }
+
+            input[type="submit"] {
+            display: block;
+            width: 60%;
+            margin: 1em auto;
+            height: 2em;
+            font-size: 1.1rem;
+            background-color: #3b3b4f;
+            border-color: white;
+            min-width: 300px;
+            }
+        </xmp>
+      </article>
+    </section>
+     <hr>
+  
+     <section class="main-section" id="Tribute Page">
+       <header>Tribute Page</header>
+       <article>
+        <h3>HTML File</h3>
+         <xmp>
+            <main id="main">
+                <h1 id="title">孙中山</h1>
+                <h3>民族英雄、中国民主革命的伟大先驱</h3>
+                <figure id="img-div">
+                    <img id="image" src="https://i.postimg.cc/T1x1ZXy3/szs-1.jpg" alt="孙中山" />
+                    <figcaption id="img-caption">
+                        孙中山（1866年11月12日-1925年3月12日），名文，号逸仙，伟大的民族英雄、伟大的爱国主义者、中国民主革命的伟大先驱，中华民国和中国国民党的缔造者，三民主义的倡导者。
+                    </figcaption>
+                </figure>
+                <section id="tribute-info">
+                    <h3 id="headline">孙中山生平：</h3>
+                    <ul>
+                        <li>1866年11月12日（同治五年十月初六日），孙中山出生于广东。</li>
+                        <li>1878年，12岁的孙中山随母赴檀香山。</li>
+                        <li>1883年，17岁的孙中山自檀香山归国，同年前往香港读书。</li>
+                        <li>1894年11月24日，孙中山在檀香山创立兴中会，取“振兴中华”之意。</li>
+                        <li>1900年（光绪二十六年）10月，派郑士良到广东惠州（即惠阳）三洲田发动起义。</li>
+                        <li>1905年（光绪三十一年）在比、德、法等国的留学生中建立了革命团体，在此期间也与国内的革命团体和革命志士建立了联系。</li>
+                        <li>1911年（宣统三年）10月10日，武昌起义爆发，各省纷纷响应。孙中山在美国得知消息后，12月下旬回国。</li>
+                        <li>1917年（民国六年）7月，因段祺瑞为首领的北洋军阀解散国会和废弃《临时约法》，孙中山联合西南军阀，在广州建立军政府，被推举为大元帅，进行护法战争。</li>
+                        <li>1923年（民国十二年）1月，孙中山与苏联代表越飞发表《孙文越飞宣言》，奠定了联俄政策的基础，随即派廖仲恺赴日与越飞谈判。</li>
+                        <li>1925年（民国十四年）3月12日，因癌症在北京逝世。逝世前夕签署的遗嘱，包括《国事遗嘱》、《家事遗嘱》和《致苏俄遗书》三个文件。</li>
+                    </ul>
+                </section>
+                <section>
+                    <p>
+                        孙中山制定三民主义学说作为指导思想，旨在建立一个民有、民治、民享的共和国，建立一个自由、平等、博爱的和谐社会，他宣誓要以“博爱”、“天下为公”、“世界大同”为己任，实现中国和世界文明共享，共同进步，建立一个天下为公的大同世界，造就和谐安康幸福的人类社会。
+                    </p>
+                </section>
+                <section>
+                    <a id="tribute-link" href="https://baike.baidu.com/item/%E5%AD%99%E4%B8%AD%E5%B1%B1/128084"
+                        target="_blank">更多信息，请查询百科</a>
+                </section>
+            </main>
+        </xmp>
+        <h3>CSS File</h3>
+        <xmp>
+            @media (prefers-reduced-motion: no-preference) {
+            * {
+            scroll-behavior: smooth;
+            }
+            }
+
+            body {
+            width: 100%;
+            height: 100vh;
+            margin: 0;
+            background: #f5f6f7;
+            color: #1b1b32;
+            font-family: Tahoma;
+            font-size: 16px;
+            }
+            h1, h3 {
+            margin: 1em auto;
+            text-align: center;
+            }
+
+            img {
+            max-width: 100%;
+            display: block;
+            height: auto;
+            margin: 0 auto;
+            }
+            main {
+            padding-top: 50px;
+            }
+            p {
+            margin-top: 5px;
+            padding-left: 15px;
+            font-size: 16px;
+            }
+
+            a {
+            color: black;
+            margin-top: 5px;
+            padding-left: 15px
+            }
+
+            a:visited {
+            color: black;
+            }
+
+            a:hover {
+            color: brown;
+            }
+
+            a:active {
+            color: brown;
+            }
+        </xmp>
+       </article>
+     </section>
+
+     <hr>
+     <section class="main-section" id="Tech Doc Page">
+       <header>Tech Doc Page</header>
+       <article>
+        <h3>HTML File</h3>
+        <xmp>
+            <main id="main-doc">
+                <section class="main-section" id="简介">
+                    <header>简介</header>
+                    <article>
+                        <p>HTML的英文全称是 Hyper Text Markup Language，即超文本标记语言。HTML是由Web的发明者 Tim Berners-Lee和同事
+                            Daniel W.
+                            Connolly于1990年创立的一种标记语言，它是标准通用化标记语言SGML的应用。用HTML编写的超文本文档称为HTML文档，它能独立于各种操作系统平台(如UNIX，
+                            Windows等)。使用HTML，将所需要表达的信息按某种规则写成HTML文件，通过专用的浏览器来识别，并将这些HTML文件“翻译”成可以识别的信息，即我们所见到的网页。
+                        </p>
+                        <p>自1990年以来，HTML就一直被用作万维网的信息表示语言，使用HTML描述的文件需要通过web浏览器显示出效果。HTML是一种建立网页文件的语言，通过标记式的指令(Tag)，将文字，图形、动画、声音、表格、链接、影像等内容显示出来。事实上，每一个HTML文档都是一种静态的网页文件，这个文件里面包含了HTML指令代码，这些指令代码并不是一种程序语言，只是一种排版网页中资料显示位置的标记结构语言，易学易懂，非常简单。HTML的普遍应用就是带来了超文本的技术―通过单击鼠标从一个主题跳转到另一个主题，从一个页面跳转到另一个页面，与世界各地主机的文件链接超文本传输协议规定了浏览器在运行HTML文档时所遵循的规则和进行的操作。HTTP的制定使浏览器在运行超文本时有了统一的规则和标准。
+                        </p>
+                        <p>万维网（world wide
+                            web，简称www）上的一个超媒体文档称之为一个页面（外语：page）。作为一个组织或者个人在万维网上放置开始点的页面称为主页（外语：Homepage）或首页，主页中通常包括有指向其他相关页面或其他节点的指针（超级链接），所谓超级链接，就是一种统一资源定位器（Uniform
+                            Resource
+                            Locator，外语缩写：URL）指针，通过激活（点击）它，可使浏览器方便地获取新的网页。这也是HTML获得广泛应用的最重要的原因之一。在逻辑上将视为一个整体的一系列页面的有机集合称为网站（Website或Site）。超文本标记语言（英文缩写：HTML）是为“网页创建和其它可在网页浏览器中看到的信息”设计的一种标记语言。
+                        </p>
+                        <p>网页的本质就是超文本标记语言，通过结合使用其他的Web技术（如：脚本语言、公共网关接口、组件等），可以创造出功能强大的网页。因而，超文本标记语言是万维网（Web）编程的基础，也就是说万维网是建立在超文本基础之上的。超文本标记语言之所以称为超文本标记语言，是因为文本中包含了所谓“超级链接”点。
+                        </p>
+                    </article>
+                </section>
+                <section class="main-section" id="HTML版本">
+                    <header>HTML版本</header>
+                    <article>
+                        HTML历史上有如下版本：
+                        <ul>
+                            <li>HTML 1.0：在1993年6月作为互联网工程工作小组(IETF)工作草案发布。 </li>
+                            <li>HTML 2.0：1995年1 1月作为RFC 1866发布，于2000年6月发布之后被宣布已经过时。</li>
+                            <li>HTML 3.2：1997年1月14日，W3C推荐标准。 </li>
+                            <li>HTML 4.0：1997年12月18日，W3C推荐标准。 </li>
+                            <li>HTML 4.01（微小改进）：1999年12月24日，W3C推荐标准。 </li>
+                            <li>HTML 5：HTML5是公认的下一代Web语言，极大地提升了Web在富媒体、富内容和富应用等方面的能力，被喻为终将改变移动互联网的重要推手。Internet
+                                Explorer 8及以前的版本不支持。 </li>
+                            <ul>
+                    </article>
+                </section>
+                <section class="main-section" id="特点">
+                    <header>特点</header>
+                    <p>
+                    <ol>
+                        <li>简易性：超文本标记语言版本升级采用超集方式，从而更加灵活方便。</li>
+                        <li>可扩展性：超文本标记语言的广泛应用带来了加强功能，增加标识符等要求，超文本标记语言采取子类元素的方式，为系统扩展带来保证。</li>
+                        <li>平台无关性：虽然个人计算机大行其道，但使用MAC等其他机器的大有人在，超文本标记语言可以使用在广泛的平台上，这也是万维网（WWW）盛行的另一个原因。</li>
+                        <li>通用性：另外，HTML是网络的通用语言，一种简单、通用的全置标记语言。它允许网页制作人建立文本与图片相结合的复杂页面，这些页面可以被网上任何其他人浏览到，无论使用的是什么类型的电脑或浏览器。
+                        </li>
+                    </ol>
+                    </p>
+                </section>
+                <section class="main-section" id="编辑方式">
+                    <header>编辑方式</header>
+                    <article>HTML其实是文本，它需要浏览器的解释，它的编辑器大体可以分为以下几种：
+                        <ol>
+                            <li>基本文本、文档编辑软件，使用微软自带的记事本或写字板都可以编写，当然，如果你用WPS或Word来编写也可以，不过保存时请使用.htm或.html作为扩展名，这样就方便浏览器认出直接解释执行了。
+                            </li>
+                            <li>半所见即所得软件，如：FCK-Editer、E-webediter等在线网页编辑器；尤其推荐：Sublime Text代码编辑器（由Jon
+                                Skinner开发，Sublime Text2收费但可以无限期试用）。
+                            </li>
+                            <li>所见即所得软件，使用最广泛的编辑器，完全可以一点不懂HTML的知识就可以做出网页，如：AMAYA（出品单位：万维网联盟）；FRONTPAGE（出品单位：微软）；Dreamweaver（出品单位Adobe）。Microsoft
+                                Visual
+                                Studio（出品公司：微软）：其中所见即所得软件与半所见即所得的软件相比，开发速度更快，效率更高，且直观的表现更强。任何地方进行修改只需要刷新即可显示。缺点是生成的代码结构复杂，不利于大型网站的多人协作和精准定位等高级功能的实现。
+                            </li>
+                        </ol>
+                    </article>
+                </section>
+                <section class="main-section" id="整体结构">
+                    <header>整体结构</header>
+                    <article>
+                        <p>一个网页对应多个HTML文件，超文本标记语言文件以.htm或.html（外语缩写）为扩展名(其中.htm是因为之前的文件系统只支持最多三位扩展名)。可以使用任何能够生成TXT类型源文件的文本编辑器来产生超文本标记语言文件，只用修改文件后缀即可。标准的超文本标记语言文件都具有一个基本的整体结构，标记一般都是成对出现（部分标记除外例如：&lt;br/&gt;
+                            &lt;img/&gt;），即超文本标记语言文件的开头与结尾标志和超文本标记语言的头部与实体两大部分。有三个双标记符用于页面整体结构的确认。</p>
+                        <p>部分标记也可以不成对出现，如&lt; p &gt;，但是一般并不赞同这样做。</p>
+                        <p>标记符&lt;html&gt;，说明该文件是用超文本标记语言来描述的，它是文件的开头;而&lt;/html&gt;，则表示该文件的结尾，它们是超文本标记语言文件的开始标记和结尾标记。
+                        </p>
+                        <p>头部内容,
+                            标记符&lt;html&gt;：说明该文件是用超文本标记语言来描述的，它是文件的开头，而&lt;/html&gt;则表示该文件的结尾，它们是超文本标记语言文件的开始标记和结尾标记。&lt;head>&lt;/head&gt;：这2个标记符分别表示头部信息的开始和结尾。头部中包含的标记是页面的标题、序言、说明等内容，它本身不作为内容来显示，但影响网页显示的效果。头部中最常用的标记符是标题标记符和meta标记符，其中标题标记符用于定义网页的标题，它的内容显示在网页窗口的标题栏中，网页标题可被浏览器用做书签和收藏清单。
+                        </p>
+
+                        <p>
+                            主体内容
+                            &lt;body&gt;&lt;/body&gt;；，网页中显示的实际内容均包含在这2个正文标记符之间。正文标记符又称为实体标记。
+                            标题：总共有6个等级，定义方法如下:
+
+                            <code>&lt;h1&gt;&lt;/h1&gt;定义一级标题</code>
+                            <code>&lt;h2&gt;&lt;/h2&gt;定义二级标题</code>
+                            <code>&lt;h3&gt;&lt;/h3&gt;定义三级标题</code>
+                            <code>&lt;h4&gt;&lt;/h4&gt;定义四级标题</code>
+                            <code>&lt;h5&gt;&lt;/h5&gt;定义五级标题</code>
+                            <code>&lt;h6&gt;&lt;/h6&gt;定义六级标题</code>
+
+                            以此类推:<br>
+                            文本:<br>
+                            &lt;p&gt;&lt;/p&gt;定义文本<br>
+                            换行符<br>
+                            &lt;br/&gt;换行符
+                        </p>
+                    </article>
+                </section>
+            </main>
+        </xmp>
+        <h3>CSS File</h3>
+        <xmp>
+            html,
+            body {
+            min-width: 290px;
+            color: #4d4e53;
+            background-color: #ffffff;
+            font-family: 'Open Sans', Arial, sans-serif;
+            line-height: 1.5;
+            }
+
+            #navbar {
+            position: fixed;
+            min-width: 290px;
+            top: 0px;
+            left: 0px;
+            width: 300px;
+            height: 100%;
+            border-right: solid;
+            border-color: rgba(0, 22, 22, 0.4);
+            }
+
+            header {
+            color: black;
+            margin: 10px;
+            text-align: center;
+            font-size: 1.8em;
+            font-weight: thin;
+            }
+
+            #main-doc header {
+            text-align: left;
+            margin: 0px;
+            }
+
+            #navbar ul {
+            height: 88%;
+            padding: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            }
+
+            #navbar li {
+            color: #4d4e53;
+            border-top: 1px solid;
+            list-style: none;
+            position: relative;
+            width: 100%;
+            }
+
+            #navbar a {
+            display: block;
+            padding: 10px 30px;
+            color: #4d4e53;
+            text-decoration: none;
+            cursor: pointer;
+            }
+
+            #main-doc {
+            position: absolute;
+            margin-left: 310px;
+            padding: 20px;
+            margin-bottom: 110px;
+            }
+
+            section article {
+            color: #4d4e53;
+            margin: 15px;
+            font-size: 0.96em;
+            }
+
+            section li {
+            margin: 15px 0px 0px 20px;
+            }
+
+            code {
+            display: block;
+            text-align: left;
+            white-space: pre-line;
+            position: relative;
+            word-break: normal;
+            word-wrap: normal;
+            line-height: 2;
+            background-color: #f7f7f7;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 5px;
+            }
+
+            @media only screen and (max-width: 815px) {
+            /* For mobile phones: */
+            #navbar ul {
+            border: 1px solid;
+            height: 207px;
+            }
+
+            #navbar {
+            background-color: white;
+            position: absolute;
+            top: 0;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            max-height: 275px;
+            border: none;
+            z-index: 1;
+            border-bottom: 2px solid;
+            }
+
+            #main-doc {
+            position: relative;
+            margin-left: 0px;
+            margin-top: 270px;
+            }
+            }
+
+            @media only screen and (max-width: 400px) {
+            #main-doc {
+            margin-left: -10px;
+            }
+
+            code {
+            margin-left: -20px;
+            width: 100%;
+            padding: 15px;
+            padding-left: 10px;
+            padding-right: 45px;
+            min-width: 233px;
+            }
+            }
+        </xmp>
+    
+       </article>
+     </section>
+     <hr>
+
+     <section class="main-section" id="Product Landing Page">
+       <header>Product Landing Page</header>
+       <article>
+        <h3>HTML File</h3>
+        <xmp>
+            <div id="page-wrapper">
+                <header id="header">
+                    <div class="logo">
+                        <img id="header-img" src="https://i.postimg.cc/D0HG5hhP/hp-sample.png"
+                            alt="hp products logo" />
+                    </div>
+
+                    <nav id="nav-bar">
+                        <ul>
+                            <li><a class="nav-link" href="#features">产品</a></li>
+                            <li><a class="nav-link" href="#how-it-works">性能</a></li>
+                            <li><a class="nav-link" href="#pricing">价格</a></li>
+                        </ul>
+                    </nav>
+                </header>
+
+                <div class="container"></div>
+
+                <section id="hero">
+                    <h2>HP What are you looking for?</h2>
+                    <p>请输入您的邮箱地址以获得最新资讯</p>
+                    <form id="form" action="https://www.freecodecamp.com/email-submit">
+                        <input name="email" id="email" type="email" placeholder="Enter your email address"
+                            required />
+                        <input id="submit" type="submit" value="确定" class="btn" />
+                    </form>
+                </section>
+
+                <div class="container">
+                    <section id="features">
+                        <div class="grid">
+                            <div class="icon"><i class="fa fa-3x fa-fighter-jet"></i></div>
+                            <div class="desc">
+                                <h2>运行更快</h2>
+                                <p>
+                                    探索第12代 Intel CPU 如何让您的计算机运行得更快。</p>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="icon"><i class="fa fa-3x fa-truck"></i></div>
+                            <div class="desc">
+                                <h2>发货更快</h2>
+                                <p>
+                                    我们可以保证您订购的产品比以前会更快的投递给您。
+                                </p>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="icon">
+                                <i class="fa fa-3x fa-battery-full" aria-hidden="true"></i>
+                            </div>
+                            <div class="desc">
+                                <h2>质量保证</h2>
+                                <p>
+                                    您购买的每一件HP产品，我们都保证其质量是得到保证的。
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                    <section id="how-it-works">
+                        <iframe id="video" height="315"
+                            src="https://www.youtube.com/embed/PcuHAz5_8fQ?rel=0&amp;controls=0&amp;showinfo=0"
+                            frameborder="0" allowfullscreen></iframe>
+                    </section>
+                    <section id="pricing">
+                        <div class="product" id="tenor">
+                            <div class="level">HP ZBook Power G9 15.6" 4K</div>
+                            <h2>£2,098.80</h2>
+                            <ol>
+                                <li>Windows 11 Pro</li>
+                                <li>Intel® Core™ i9</li>
+                                <li>32 GB RAM</li>
+                                <li>1TB SSD</li>
+                            </ol>
+                            <button class="btn">购买</button>
+                        </div>
+                        <div class="product" id="bass">
+                            <div class="level">HP ZBook Fury G9 16" </div>
+                            <h2>£3,118.80</h2>
+                            <ol>
+                                <li>Windows 11 Pro</li>
+                                <li>Intel® Core™ i9</li>
+                                <li>32 GB RAM</li>
+                                <li>1 TB SSD</li>
+                            </ol>
+                            <button class="btn">购买</button>
+                        </div>
+                        <div class="product" id="valve">
+                            <div class="level">HP ZBook Studio G9 16”</div>
+                            <h2>£3,166.80</h2>
+                            <ol>
+                                <li>Windows 11 Pro</li>
+                                <li>Intel® Core™ i9</li>
+                                <li>32 GB RAM</li>
+                                <li>1 TB SSD</li>
+                            </ol>
+                            <button class="btn">购买</button>
+                        </div>
+                    </section>
+                    <footer>
+                        <ul>
+                            <li><a href="#">隐私</a></li>
+                            <li><a href="#">条款</a></li>
+                            <li><a href="#">联系我们</a></li>
+                        </ul>
+                        <span>Copyright 2023, freecodecamp&TimHuang</span>
+                    </footer>
+                </div>
+            </div>
+        </xmp>
+        <h3>CSS File</h3>
+        <xmp>
+            /** global element styling **/
+
+            @import 'https://fonts.googleapis.com/css?family=Lato:400,700';
+
+            * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            }
+
+            body {
+            background-color: #eee;
+            font-family: 'Lato', sans-serif;
+            }
+
+            #page-wrapper {
+            position: relative;
+            }
+
+            li {
+            list-style: none;
+            }
+
+            a {
+            color: #000;
+            text-decoration: none;
+            }
+
+            /** global classes styling **/
+
+            .container {
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+            }
+
+            .btn {
+            padding: 0 20px;
+            height: 40px;
+            font-size: 1em;
+            font-weight: 900;
+            text-transform: uppercase;
+            border: 3px black solid;
+            border-radius: 2px;
+            background: transparent;
+            cursor: pointer;
+            }
+
+            .grid {
+            display: flex;
+            }
+
+            header {
+            position: fixed;
+            top: 0;
+            min-height: 75px;
+            padding: 0px 20px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: #eee;
+            }
+
+            @media (max-width: 600px) {
+            header {
+            flex-wrap: wrap;
+            }
+            }
+
+            .logo {
+            width: 60vw;
+            }
+
+            @media (max-width: 650px) {
+            .logo {
+            margin-top: 15px;
+            width: 100%;
+            position: relative;
+            }
+            }
+
+            .logo > img {
+            width: 100%;
+            height: 100%;
+            max-width: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin-left: 20px;
+            }
+
+            @media (max-width: 650px) {
+            .logo > img {
+            margin: 0 auto;
+            }
+            }
+
+            nav {
+            font-weight: 400;
+            }
+
+            @media (max-width: 650px) {
+            nav {
+            margin-top: 10px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 0 50px;
+            }
+            nav li {
+            padding-bottom: 5px;
+            }
+            }
+
+            nav > ul {
+            width: 35vw;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            }
+
+            @media (max-width: 650px) {
+            nav > ul {
+            flex-direction: column;
+            }
+            }
+
+            #hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: 200px;
+            margin-top: 50px;
+            }
+
+            #hero > h2 {
+            margin-bottom: 20px;
+            word-wrap: break-word;
+            }
+
+            #hero input[type='email'] {
+            max-width: 275px;
+            width: 100%;
+            padding: 5px;
+            }
+
+            #hero input[type='submit'] {
+            max-width: 150px;
+            width: 100%;
+            height: 30px;
+            margin: 15px 0;
+            border: 0;
+            background-color: #f1c40f;
+            }
+
+            #hero input[type='submit']:hover {
+            background-color: orange;
+            transition: background-color 1s;
+            }
+
+            @media (max-width: 650px) {
+            #hero {
+            margin-top: 120px;
+            }
+            }
+
+            #features {
+            margin-top: 30px;
+            }
+
+            #features .icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 125px;
+            width: 20vw;
+            color: darkorange;
+            }
+
+            @media (max-width: 550px) {
+            #features .icon {
+            display: none;
+            }
+            }
+
+            #features .desc {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 125px;
+            width: 80vw;
+            padding: 5px;
+            }
+
+            @media (max-width: 550px) {
+            #features .desc {
+            width: 100%;
+            text-align: center;
+            padding: 0;
+            height: 150px;
+            }
+            }
+
+            @media (max-width: 650px) {
+            #features {
+            margin-top: 0;
+            }
+            }
+
+            #how-it-works {
+            margin-top: 50px;
+            display: flex;
+            justify-content: center;
+            }
+
+            #how-it-works > iframe {
+            max-width: 560px;
+            width: 100%;
+            }
+
+            #pricing {
+            margin-top: 60px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            }
+
+            .product {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: calc(100% / 3);
+            margin: 10px;
+            border: 1px solid #000;
+            border-radius: 3px;
+            }
+
+            .product > .level {
+            background-color: #ddd;
+            color: black;
+            padding: 15px 0;
+            width: 100%;
+            text-transform: uppercase;
+            font-weight: 700;
+            }
+
+            .product > h2 {
+            margin-top: 15px;
+            }
+
+            .product > ol {
+            margin: 15px 0;
+            }
+
+            .product > ol > li {
+            padding: 5px 0;
+            }
+
+            .product > button {
+            border: 0;
+            margin: 15px 0;
+            background-color: #f1c40f;
+            font-weight: 400;
+            }
+
+            .product > button:hover {
+            background-color: orange;
+            transition: background-color 1s;
+            }
+
+            @media (max-width: 800px) {
+            #pricing {
+            flex-direction: column;
+            }
+            .product {
+            max-width: 300px;
+            width: 100%;
+            margin: 0 auto;
+            margin-bottom: 10px;
+            }
+            }
+
+            footer {
+            margin-top: 30px;
+            background-color: #ddd;
+            padding: 20px;
+            }
+
+            footer > ul {
+            display: flex;
+            justify-content: flex-end;
+            }
+
+            footer > ul > li {
+            padding: 0 10px;
+            }
+
+            footer > span {
+            margin-top: 5px;
+            display: flex;
+            justify-content: flex-end;
+            font-size: 0.9em;
+            color: #444;
+            }
+        </xmp>
+    
+       </article>
+     </section>
+     <hr>
+
+     <section class="main-section" id="Personal Portfolio Webpage">
+       <header>Personal Portfolio Webpage</header>
+       <article>
+        <h3>HTML File</h3>
+        <xmp>
+
+            <head>
+                <link rel="stylesheet" href="styles.css" />
+                <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+                    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+                    crossorigin="anonymous" />
+                <link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,400&display=swap"
+                    rel="stylesheet" />
+                <link href="https://fonts.googleapis.com/css?family=Raleway:700&display=swap"
+                    rel="stylesheet" />
+                <meta charset="utf-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <title>个人集作品展示页</title>
+            </head>
+
+            <body>
+                <!-- START NAV -->
+
+                <nav id="navbar" class="nav">
+                    <ul class="nav-list">
+                        <li>
+                            <a href="#welcome-section">关于</a>
+                        </li>
+                        <li>
+                            <a href="#projects">作品展</a>
+                        </li>
+                        <li>
+                            <a href="#contact">联系</a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <!-- END NAV -->
+
+                <!-- START WELCOME SECTION -->
+
+                <section id="welcome-section" class="welcome-section">
+                    <h1>Hey，我是 Tim</h1>
+                    <p>我正在学习响应式网页制作</p>
+                </section>
+
+                <!-- END WELCOME SECTION -->
+
+                <!-- START PROJECTS SECTION -->
+
+                <section id="projects" class="projects-section">
+                    <h2 class="projects-section-header">这是我的部分项目列表</h2>
+
+                    <div class="projects-grid">
+                        <a href="https://freecodecamp-zhijingye.timhung1221.repl.co" target="_blank"
+                            class="project project-tile">
+                            <img class="project-image" src="https://i.postimg.cc/T1x1ZXy3/szs-1.jpg"
+                                alt="project" />
+                            <p class="project-title">
+                                <span class="code">&lt;</span>
+                                致敬孙中山
+                                <span class="code">&#47;&gt;</span>
+                            </p>
+                        </a>
+                        <a href="https://freecodecamp-surveyform.timhung1221.repl.co" target="_blank"
+                            class="project project-tile">
+                            <img class="project-image" src="https://i.postimg.cc/2yK8p3k1/Survey-Form.png"
+                                alt="project" />
+                            <p class="project-title">
+                                <span class="code">&lt;</span>
+                                调查问卷
+                                <span class="code">&#47;&gt;</span>
+                            </p>
+                        </a>
+                        <a href="https://freecodecamp-technicaldocumentationpage.timhung1221.repl.co"
+                            target="_blank" class="project project-tile">
+                            <img class="project-image" src="https://i.postimg.cc/c6G1123W/Tec-Doc-Page.png"
+                                alt="project" />
+                            <p class="project-title">
+                                <span class="code">&lt;</span>
+                                技术文档页
+                                <span class="code">&#47;&gt;</span>
+                            </p>
+                        </a>
+                        <a href="https://freecodecamp-productlandingpage.timhung1221.repl.co" target="_blank"
+                            class="project project-tile">
+                            <img class="project-image" src="https://i.postimg.cc/QMMDD1t0/prologinpage.png"
+                                alt="project" />
+                            <p class="project-title">
+                                <span class="code">&lt;</span>
+                                产品登录页
+                                <span class="code">&#47;&gt;</span>
+                            </p>
+                        </a>
+                    </div>
+
+                    <a href="https://freecodecamp-certiferpages.timhung1221.repl.co" class="btn btn-show-all"
+                        target="_blank">显示所有<i class="fas fa-chevron-right"></i></a>
+                </section>
+
+                <!-- END PROJECTS SECTION -->
+
+                <!-- START CONTACT SECTION -->
+
+                <section id="contact" class="contact-section">
+                    <div class="contact-section-header">
+                        <h2>欢迎联系</h2>
+                        <p>通过以下方式</p>
+                    </div>
+                    <div class="contact-links">
+                        <a href="https://www.facebook.com/tim.huang.9889" target="_blank"
+                            class="btn contact-details"><i class="fab fa-facebook-square"></i> Facebook</a>
+                        <a id="profile-link" href="https://github.com/timhung1221" target="_blank"
+                            class="btn contact-details"><i class="fab fa-github"></i> GitHub</a>
+
+                        <a href="mailto:timhung1221@gmail.com" class="btn contact-details"><i
+                                class="fas fa-at"></i> Send a mail</a>
+
+                    </div>
+                </section>
+
+                <!-- END CONTACT SECTION -->
+
+                <!-- START FOOTER SECTION -->
+
+                <footer>
+                    <p>
+                        All the projects learned from freeCodeCamp.
+                    </p>
+                    <p>
+                        &copy; Created by Tim & all credits to
+                        <a href="https://www.freecodecamp.com/" target="_blank">freeCodeCamp <i
+                                class="fab fa-free-code-camp"></i></a>
+                    </p>
+                </footer>
+
+                <!-- END FOOTER SECTION -->
+                <script data-cfasync="false"
+                    src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+            </body>
+        </xmp>
+        <h3>CSS File</h3>
+        <xmp>
+            /* Custom properties/variables */
+            :root {
+            --main-white: #f0f0f0;
+            --main-red: #be3144;
+            --main-blue: #45567d;
+            --main-gray: #303841;
+            }
+
+            /* Base reset */
+            * {
+            margin: 0;
+            padding: 0;
+            }
+
+            /* box-sizing and font sizing */
+            *,
+            *::before,
+            *::after {
+            box-sizing: inherit;
+            }
+
+            html {
+            box-sizing: border-box;
+
+            /* Set font size for easy rem calculations
+            * default document font size = 16px, 1rem = 16px, 100% = 16px
+            * (100% / 16px) * 10 = 62.5%, 1rem = 10px, 62.5% = 10px
+            */
+            font-size: 62.5%;
+            scroll-behavior: smooth;
+            }
+
+            /* A few media query to set some font sizes at different screen sizes.
+            * This helps automate a bit of responsiveness.
+            * The trick is to use the rem unit for size values, margin and padding.
+            * Because rem is relative to the document font size
+            * when we scale up or down the font size on the document
+            * it will affect all properties using rem units for the values.
+            */
+
+            /* I am using the em unit for breakpoints
+            * The calculation is the following
+            * screen size divided by browser base font size
+            * As an example: a breakpoint at 980px
+            * 980px / 16px = 61.25em
+            */
+
+            /* 1200px / 16px = 75em */
+            @media (max-width: 75em) {
+            html {
+            font-size: 60%;
+            }
+            }
+
+            /* 980px / 16px = 61.25em */
+            @media (max-width: 61.25em) {
+            html {
+            font-size: 58%;
+            }
+            }
+
+            /* 460px / 16px = 28.75em */
+            @media (max-width: 28.75em) {
+            html {
+            font-size: 55%;
+            }
+            }
+
+            /* Base styles */
+
+            body {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem; /* 18px */
+            font-weight: 400;
+            line-height: 1.4;
+            color: var(--main-white);
+            }
+
+            h1,
+            h2 {
+            font-family: 'Raleway', sans-serif;
+            font-weight: 700;
+            text-align: center;
+            }
+
+            h1 {
+            font-size: 6rem;
+            }
+
+            h2 {
+            font-size: 4.2rem;
+            }
+
+            ul {
+            list-style: none;
+            }
+
+            a {
+            text-decoration: none;
+            color: var(--main-white);
+            }
+
+            img {
+            display: block;
+            width: 100%;
+            }
+
+            /* nav */
+
+            .nav {
+            display: flex;
+            justify-content: flex-end;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--main-red);
+            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.4);
+            z-index: 10;
+            }
+
+            .nav-list {
+            display: flex;
+            margin-right: 2rem;
+            }
+
+            @media (max-width: 28.75em) {
+            .nav {
+            justify-content: center;
+            }
+
+            .nav-list {
+            margin: 0 1rem;
+            }
+            }
+
+            .nav-list a {
+            display: block;
+            font-size: 2.2rem;
+            padding: 2rem;
+            }
+
+            .nav-list a:hover {
+            background: var(--main-blue);
+            }
+
+            /* Welcome section */
+
+            .welcome-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100vh;
+            background-color: #000;
+            background-image: linear-gradient(62deg, #3a3d40 0%, #181719 100%);
+            }
+
+            .welcome-section > p {
+            font-size: 3rem;
+            font-weight: 200;
+            font-style: italic;
+            color: var(--main-red);
+            }
+
+            /* Projects section */
+
+            .projects-section {
+            text-align: center;
+            padding: 10rem 2rem;
+            background: var(--main-blue);
+            }
+
+            .projects-section-header {
+            max-width: 640px;
+            margin: 0 auto 6rem auto;
+            border-bottom: 0.2rem solid var(--main-white);
+            }
+
+            @media (max-width: 28.75em) {
+            .projects-section-header {
+            font-size: 4rem;
+            }
+            }
+
+            /* "Automagic" image grid using no media queries */
+            .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-gap: 4rem;
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            margin-bottom: 6rem;
+            }
+
+            @media (max-width: 30.625em) {
+            .projects-section {
+            padding: 6rem 1rem;
+            }
+
+            .projects-grid {
+            grid-template-columns: 1fr;
+            }
+            }
+
+            .project {
+            background: var(--main-gray);
+            box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            border-radius: 2px;
+            }
+
+            .code {
+            color: var(--main-gray);
+            transition: color 0.3s ease-out;
+            }
+
+            .project:hover .code {
+            color: #ff7f50;
+            }
+
+            .project-image {
+            height: calc(100% - 6.8rem);
+            width: 100%;
+            object-fit: cover;
+            }
+
+            .project-title {
+            font-size: 2rem;
+            padding: 2rem 0.5rem;
+            }
+
+            .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 2px;
+            }
+
+            .btn-show-all {
+            font-size: 2rem;
+            background: var(--main-gray);
+            transition: background 0.3s ease-out;
+            }
+
+            .btn-show-all:hover {
+            background: var(--main-red);
+            }
+
+            .btn-show-all:hover > i {
+            transform: translateX(2px);
+            }
+
+            .btn-show-all > i {
+            margin-left: 10px;
+            transform: translateX(0);
+            transition: transform 0.3s ease-out;
+            }
+
+            /* Contact section */
+
+            .contact-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+            height: 80vh;
+            padding: 0 2rem;
+            background: var(--main-gray);
+            }
+
+            .contact-section-header > h2 {
+            font-size: 6rem;
+            }
+
+            @media (max-width: 28.75em) {
+            .contact-section-header > h2 {
+            font-size: 4rem;
+            }
+            }
+
+            .contact-section-header > p {
+            font-style: italic;
+            }
+
+            .contact-links {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            max-width: 980px;
+            margin-top: 4rem;
+            flex-wrap: wrap;
+            }
+
+            .contact-details {
+            font-size: 2.4rem;
+            text-shadow: 2px 2px 1px #1f1f1f;
+            transition: transform 0.3s ease-out;
+            }
+
+            .contact-details:hover {
+            transform: translateY(8px);
+            }
+
+            /* Footer */
+
+            footer {
+            font-weight: 300;
+            display: flex;
+            justify-content: space-evenly;
+            padding: 2rem;
+            background: var(--main-gray);
+            border-top: 4px solid var(--main-red);
+            }
+
+            footer > p {
+            margin: 2rem;
+            }
+
+            footer i {
+            vertical-align: middle;
+            }
+
+            @media (max-width: 28.75em) {
+            footer {
+            flex-direction: column;
+            text-align: center;
+            }
+            }
+        </xmp>
+    
+       </article>
+     </section>
+
+  </main>
+</body>
+
+</html>
