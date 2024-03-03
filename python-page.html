@@ -1,0 +1,1760 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Python Samples" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>Python Samples</title>
+</head>
+
+<body>
+    <nav id="navbar">
+        <header>Python Samples</header>
+        <ul>
+            <li><a class="nav-link" href="#finance_calculators">finance_calculators</a></li>
+            <li><a class="nav-link" href="#Files">Files</a></li>
+            <li><a class="nav-link" href="#List, Functions, and String Handling">List, Functions, and String
+                    Handling</a></li>
+            <li><a class="nav-link" href="#OOP">OOP</a></li>
+            <li><a class="nav-link" href="#Databases">Databases</a></li>
+        </ul>
+    </nav>
+
+    <main id="main-doc">
+        <section class="main-section" id="Title">
+            <header>Python Samples</header>
+        </section>
+
+        <hr>
+        <section class="main-section" id="finance_calculators">
+            <header>finance_calculators</header>
+            <article>
+                <h3>Code File</h3>
+                <xmp>
+
+                    # simple financial calculators.
+
+                    import math
+
+                    choice = ""
+                    while choice.lower() != "investment" and choice.lower() != "bond":
+                    print("Choose either 'investment' or 'bond' from the menu below to proceed.\n"
+                    "Tips: Case insensitive but word must correct otherwise input again.")
+                    choice = input("investment - to calculate the amount of interest you'll earn on your investment. \n"
+                    "bond - to calculate the amount you'll have to pay on a home loan.\n"
+                    "Choose: ")
+
+                    choice = choice.lower()
+
+                    print(f"You choose {choice}")
+
+                    if choice == "investment":
+                    amount = ""
+                    while not amount.isdigit():
+                    amount = input("Please input the amount of money that you are depositing( integer number only ): ")
+                    amount = int(amount)
+
+                    interestRate = ""
+                    while not interestRate.isdigit():
+                    interestRate = input("Please input the interest rate( integer number only )%: ")
+                    interestRate = float(float(interestRate) / 100)
+
+                    year = ""
+                    while not year.isdigit():
+                    year = input("Please input the years you plan on investing( integer number only ): ")
+                    year = int(year)
+
+                    interest = ""
+                    while interest.lower() != "simple" and interest.lower() != "compound":
+                    interest = input("Choose one of interest type, 'simple' or 'compound'(case insensitive): ")
+
+                    interest = interest.lower()
+
+                    totalAmount = 0.0
+                    if interest == "simple":
+                    totalAmount = round(amount * (1 + interestRate * year), 2)
+                    elif interest == "compound":
+                    totalAmount = round(amount * math.pow((1 + interestRate), year), 2)
+
+                    print(
+                    f"You choose interest: {interest}, and investment amount: {amount}, interest rate: {interestRate},
+                    year: {year} .")
+                    print(f"The amount of interest you'll earn on your investment: {totalAmount}")
+
+                    elif choice == "bond":
+                    houseValue = ""
+                    while not houseValue.isdigit():
+                    houseValue = input("Please input the present value of your house. e.g 100000( integer number only ):
+                    ")
+                    houseValue = int(houseValue)
+
+                    interestRate = "" # monthly interest rate, calculated by dividing the annual interest rate by 12.
+                    while not interestRate.isdigit():
+                    interestRate = input("Please input the monthly interest rate. e.g 7( integer number only, will
+                    dividing 12 )%: ")
+                    interestRate = round(float(float(interestRate) / 12), 2)
+
+                    months = ""
+                    while not months.isdigit():
+                    months = input("Please input the number of months you plan to take to repay the bond. e.g 120(
+                    integer number "
+                    "only ): ")
+                    months = int(months)
+
+                    # Bond repayment formula: x = (i.P)/(1 - (1+i)^(-n))
+                    repayment = round((interestRate * houseValue) / (1 - math.pow(1 + interestRate, -months)), 2)
+
+                    print(
+                    f"You choose value of house: {houseValue}, interest rate(dividing 12 months): {interestRate},
+                    months: {months}.")
+                    print(f"The amount you'll have to pay on a home loan: {repayment}")
+
+                </xmp>
+            </article>
+        </section>
+
+        <hr>
+        <section class="main-section" id="Files">
+            <header>Files</header>
+            <article>
+                <h3>Code File</h3>
+                <xmp>
+
+                    from datetime import date
+
+
+                    # Define a input function.
+                    def get_infor(message):
+                    info = ""
+                    while info == "":
+                    info = input(message).lower()
+                    if info == "":
+                    print("Input error, try again.")
+                    return info
+
+
+                    # Define a function for save information in a file.
+                    def save_info_in_file(filename, information):
+                    out_file = open(filename, "a")
+                    out_file.write("\n" + information)
+                    out_file.close()
+
+
+                    # Define a function to get username and password.
+                    def register_user():
+                    print("Please input a username and password.")
+
+                    username = get_infor("Input username: ")
+                    password = get_infor("Input password: ")
+                    confirm_password = get_infor("Confirm your password: ")
+
+                    while confirm_password != password:
+                    print("Password input error, try again.")
+                    confirm_password = get_infor("Confirm your password: ")
+
+                    # Save user information to file.
+                    print(f"New user name and password are {username} and {password}.")
+                    save_info_in_file("user.txt", f"{username}, {password}")
+                    print("New user has registered.")
+
+
+                    # Define a function to add new task.
+                    def add_task(username):
+                    # username = get_infor("Please input the username: ")
+                    title_task = get_infor("Please input the task title: ")
+                    desc_task = get_infor("Please input the description of task: ")
+                    # Get current date.
+                    today = date.today()
+                    current_date = today.strftime("%d %b %Y")
+                    # current_date = get_infor("Please input the start date(format: dd-mm-yy): ")
+                    print(f"Current date is: {current_date} ")
+                    due_date = get_infor("Please input the due date to the task like current date(format: dd MM yyyy):
+                    ")
+                    status_task = "No"
+                    task = username + ", " + title_task + ", " + desc_task + ", " + current_date + ", " + due_date + ",
+                    " + status_task
+                    save_info_in_file("tasks.txt", task)
+                    print("New task has appended.")
+
+
+                    # Define a function to read all task from the file of tasks.txt.
+                    def read_all_task():
+                    in_file = open("tasks.txt", "r")
+                    # text = in_file.read()
+                    task_list = []
+                    for line in in_file:
+                    line = line.replace("\n", "")
+                    task_list.append(line)
+                    in_file.close()
+
+                    print(f"The total number of tasks are: {len(task_list)}")
+                    for i in range(0, len(task_list)):
+                    info = task_list[i].split(", ")
+                    # print out task.
+                    print("--------------------------------------------")
+                    print(f"Task: {info[1]}") # task
+                    print(f"Assigned to: {info[0]}") # assigned to
+                    print(f"Data assigned: {info[3]}") # date assigned
+                    print(f"Due date: {info[4]}") # due date
+                    print(f"Task Complete? {info[5]}") # task complete
+                    print(f"Task description: \n {info[2]}") # description
+                    print("---------------------------------------------")
+
+
+                    # Define a function to read all user from the file of user.txt.
+                    def read_all_user():
+                    in_file = open("user.txt", "r")
+
+                    task_list = []
+                    for line in in_file:
+                    line = line.replace("\n", "")
+                    task_list.append(line)
+                    in_file.close()
+
+                    print(f"The total number of users are: {len(task_list)}")
+                    for i in range(0, len(task_list)):
+                    info = task_list[i].split(", ")
+                    # print out user.
+                    print("--------------------------------------------")
+                    print(f"user: {info[0]}") # user
+                    print("---------------------------------------------")
+
+
+                    # Define a function to read task of specified user from the file of tasks.txt.
+                    def read_user_task(username):
+                    in_file = open("tasks.txt", "r")
+                    # text = in_file.read()
+                    task_list = []
+                    for line in in_file:
+                    line = line.replace("\n", "")
+                    task_list.append(line)
+                    in_file.close()
+
+                    for i in range(0, len(task_list)):
+                    info = task_list[i].split(", ")
+                    if info[0] == username:
+                    # print out task.
+                    print("--------------------------------------------")
+                    print(f"Task: {info[1]}") # task
+                    print(f"Assigned to: {info[0]}") # assigned to
+                    print(f"Data assigned: {info[3]}") # date assigned
+                    print(f"Due date: {info[4]}") # due date
+                    print(f"Task Complete? {info[5]}") # task complete
+                    print(f"Task description: \n {info[2]}") # description
+                    print("---------------------------------------------")
+
+
+                    # Define a function to check user valid.
+                    # return 1 if user and password both are correct.
+                    # return 2 if user is correct but password isn't.
+                    # return 3 if user is incorrect but password is correct.
+                    # return 0 if user and password both are incorrect.
+
+                    def check_valid(username, password):
+                    in_file = open("user.txt", "r")
+                    user_list = []
+                    for line in in_file:
+                    line = line.replace("\n", "")
+                    user_list.append(line)
+                    in_file.close()
+
+                    int_ret = 0
+
+                    for i in range(0, len(user_list)):
+                    info = user_list[i].split(", ")
+                    if info[0] == username and info[1] == password: # user and password both are correct.
+                    int_ret = 1
+                    elif info[0] == username and info[1] != password: # user is correct but password isn't.
+                    int_ret = 2
+                    elif info[0] != username and info[1] == password: # user is incorrect but password is correct.
+                    int_ret = 3
+                    else: # user and password both are incorrect.
+                    pass
+
+                    return int_ret
+
+
+                    # Define a function for statistics use.
+                    def statistics():
+                    read_all_task()
+
+
+                    # main function entry.
+
+                    def main():
+                    # login module.
+                    username = ""
+                    password = ""
+                    while True:
+                    while username == "":
+                    print("It will exit if input username is none.")
+                    username = input("Input your name: ").lower()
+                    if username == "":
+                    print("Input error, try again.")
+                    elif username == "none":
+                    return
+                    while password == "":
+                    password = input("Input your password: ").lower()
+                    if password == "":
+                    print("Input error, try again.")
+                    int_check_user = check_valid(username, password)
+                    if int_check_user == 1:
+                    print("You are login successful.")
+                    break
+                    elif int_check_user == 2:
+                    print("User is correct but password isn't, try again.")
+                    elif int_check_user == 3:
+                    print("user is incorrect but password is correct, try again.")
+                    elif int_check_user == 0:
+                    print("Both username and password are incorrect.")
+                    username = ""
+                    password = ""
+
+                    while True:
+                    # presenting the menu to the user and
+                    # making sure that the user input is converted to lower case.
+                    if username == "admin": # Compulsory Task Part 2.
+                    menu = input('''Select one of the following Options below:
+                    r - Registering a user
+                    a - Adding a task
+                    va - View all tasks
+                    vm - view my task
+                    st - statistics
+                    e - Exit
+                    : ''').lower()
+
+                    else:
+                    menu = input('''Select one of the following Options below:
+                    r - Registering a user
+                    a - Adding a task
+                    va - View all tasks
+                    vm - view my task
+                    e - Exit
+                    : ''').lower()
+
+                    if menu == 'r':
+                    if username == "admin": # Compulsory Task Part 2.
+                    register_user()
+                    '''In this block you will write code to add a new user to the user.txt file
+                    - You can follow the following steps:
+                    - Request input of a new username
+                    - Request input of a new password
+                    - Request input of password confirmation.
+                    - Check if the new password and confirmed password are the same.
+                    - If they are the same, add them to the user.txt file,
+                    - Otherwise you present a relevant message.'''
+                    else:
+                    print("Only the user 'admin' is allowed to register new users!")
+                    elif menu == 'a':
+                    add_task(username)
+                    '''In this block you will put code that will allow a user to add a new task to task.txt file
+                    - You can follow these steps:
+                    - Prompt a user for the following:
+                    - A username of the person whom the task is assigned to,
+                    - A title of a task,
+                    - A description of the task and
+                    - the due date of the task.
+                    - Then get the current date.
+                    - Add the data to the file task.txt and
+                    - You must remember to include the 'No' to indicate if the task is complete.'''
+
+                    elif menu == 'va':
+                    read_all_task()
+                    '''In this block you will put code so that the program will read the task from task.txt file and
+                    print to the console in the format of Output 2 in the task PDF(i.e. include spacing and labelling)
+                    You can do it in this way:
+                    - Read a line from the file.
+                    - Split that line where there is comma and space.
+                    - Then print the results in the format shown in the Output 2
+                    - It is much easier to read a file using a for loop.'''
+
+                    elif menu == 'vm':
+                    read_user_task(username)
+                    '''In this block you will put code the that will read the task from task.txt file and
+                    print to the console in the format of Output 2 in the task PDF(i.e. include spacing and labelling)
+                    You can do it in this way:
+                    - Read a line from the file
+                    - Split the line where there is comma and space.
+                    - Check if the username of the person logged in is the same as the username you have
+                    read from the file.
+                    - If they are the same print it in the format of Output 2 in the task PDF'''
+                    elif menu == 'st':
+                    '''In this block you will put code so that display statistics. The all tasks and all user should be
+                    displayed. '''
+                    read_all_user()
+                    read_all_task()
+                    elif menu == 'e':
+                    print('Goodbye!!!')
+                    exit()
+
+                    else:
+                    print("You have made a wrong choice, Please Try again")
+
+
+                    if __name__ == '__main__':
+                    main()
+
+                </xmp>
+            </article>
+        </section>
+
+        <hr>
+        <section class="main-section" id="List, Functions, and String Handling">
+            <header>List, Functions, and String Handling</header>
+            <article>
+                <h3>Code File</h3>
+                <xmp>
+
+                    # table 1(tasks.txt): username||task no||task title||task description||start date||due date||task
+                    complete mark
+                    # 0 1 2 3 4 5 6
+                    # table 2(user.txt): username||password
+                    # 0 1
+                    from datetime import date
+
+                    table_1_file = "tasks.txt"
+                    table_2_file = "user.txt"
+
+
+                    # Define 4 functions to add/delete/search/modify the data in table 1. (unique indexing is
+                    username+task no)
+                    # ----------------------------------------------------------------------------------------------
+                    def add_data_to_task(data):
+                    out_file = open(table_1_file, "a")
+                    out_file.write(data + "\n")
+                    out_file.close()
+
+
+                    # ----------------------------------------------------------------------------------------------
+                    def del_data_from_task(username, task_no):
+                    in_file = open(table_1_file, "r")
+
+                    task_list = []
+                    for line in in_file:
+                    line = line.replace("\n", "")
+                    task_list.append(line)
+                    in_file.close()
+
+                    data = ""
+                    for i in range(0, len(task_list)):
+                    info = task_list[i].split("||")
+                    if info[0] == username and info[1] == task_no:
+                    continue
+                    else:
+                    data += (task_list[i] + "\n")
+
+                    out_file = open(table_1_file, "w")
+                    out_file.write(data)
+                    out_file.close()
+
+
+                    # ----------------------------------------------------------------------------------------------
+                    def search_data_from_task(username, task_no):
+                    in_file = open(table_1_file, "r")
+
+                    task_list = []
+                    for line in in_file:
+                    line = line.replace("\n", "")
+                    task_list.append(line)
+                    in_file.close()
+
+                    data = ""
+                    for i in range(0, len(task_list)):
+                    info = task_list[i].split("||")
+                    if info[0] == username and info[1] == task_no:
+                    data = task_list[i]
+                    break
+                    return data
+
+
+                    # ----------------------------------------------------------------------------------------------
+                    def modify_data_in_task(username, task_no, modify_data):
+                    in_file = open(table_1_file, "r")
+
+                    task_list = []
+                    for line in in_file:
+                    line = line.replace("\n", "")
+                    task_list.append(line)
+                    in_file.close()
+
+                    data = ""
+                    for i in range(0, len(task_list)):
+                    info = task_list[i].split("||")
+                    if info[0] == username and info[1] == task_no:
+                    data += (modify_data + "\n")
+                    else:
+                    data += (task_list[i] + "\n")
+
+                    out_file = open(table_1_file, "w")
+                    out_file.write(data)
+                    out_file.close()
+
+
+                    # define a function to get all tasks.
+                    # -------------------------------------------------------------------------------------------------
+                    def read_all_task():
+                    in_file = open(table_1_file, "r")
+                    task_list = []
+                    for line in in_file:
+                    line = line.replace("\n", "")
+                    task_list.append(line)
+                    in_file.close()
+
+                    print(f"The total number of tasks are: {len(task_list)}")
+                    for i in range(0, len(task_list)):
+                    info = task_list[i].split("||")
+                    # print out task.
+                    print("--------------------------------------------")
+                    print(f"Assigned to: {info[0]}") # assigned to
+                    print(f"Number: {info[1]}") # task number
+                    print(f"Task: {info[2]}") # task
+                    print(f"Data assigned: {info[4]}") # date assigned
+                    print(f"Due date: {info[5]}") # due date
+                    print(f"Task Complete? {info[6]}") # task complete
+                    print(f"Task description: \n {info[3]}") # description
+                    print("---------------------------------------------")
+
+
+                    # Define a function to get tasks of special user.
+                    # Argument is username and return count of tasks.
+                    def read_user_task(username):
+                    in_file = open(table_1_file, "r")
+
+                    task_list = []
+                    for line in in_file:
+                    line = line.replace("\n", "")
+                    task_list.append(line)
+                    in_file.close()
+
+                    count_task = 0
+                    for i in range(0, len(task_list)):
+                    info = task_list[i].split("||")
+                    if info[0] == username:
+                    count_task += 1
+                    # print out task.
+                    print("--------------------------------------------")
+                    print(f"Assigned to: {info[0]}") # assigned to
+                    print(f"Number: {info[1]}") # task number
+                    print(f"Task: {info[2]}") # task
+                    print(f"Data assigned: {info[4]}") # date assigned
+                    print(f"Due date: {info[5]}") # due date
+                    print(f"Task Complete? {info[6]}") # task complete
+                    print(f"Task description: \n {info[3]}") # description
+                    print("---------------------------------------------")
+                    return count_task
+
+
+                    # -------------------------------------------------------------------------------------------------
+                    # Define 4 functions to add/delete/search/modify the data in table 2. (unique indexing is username)
+                    def add_data_to_user(data):
+                    out_file = open(table_2_file, "a")
+                    out_file.write(data + "\n")
+                    out_file.close()
+
+
+                    # -------------------------------------------------------------------------------------------------
+                    def del_data_from_user(username):
+                    in_file = open(table_2_file, "r")
+
+                    task_list = []
+                    for line in in_file:
+                    line = line.replace("\n", "")
+                    task_list.append(line)
+                    in_file.close()
+
+                    data = ""
+                    for i in range(0, len(task_list)):
+                    info = task_list[i].split("||")
+                    if info[0] == username:
+                    continue
+                    else:
+                    data += (task_list[i] + "\n")
+
+                    out_file = open(table_2_file, "w")
+                    out_file.write(data)
+                    out_file.close()
+
+
+                    # -------------------------------------------------------------------------------------------------
+                    def search_data_from_user(username):
+                    in_file = open(table_2_file, "r")
+
+                    task_list = []
+                    for line in in_file:
+                    line = line.replace("\n", "")
+                    task_list.append(line)
+                    in_file.close()
+
+                    data = ""
+                    for i in range(0, len(task_list)):
+                    info = task_list[i].split("||")
+                    if info[0] == username:
+                    data = task_list[i]
+                    break
+                    return data
+
+
+                    # -------------------------------------------------------------------------------------------------
+                    def modify_data_in_user(username, modify_data):
+                    in_file = open(table_2_file, "r")
+
+                    task_list = []
+                    for line in in_file:
+                    line = line.replace("\n", "")
+                    task_list.append(line)
+                    in_file.close()
+
+                    data = ""
+                    for i in range(0, len(task_list)):
+                    info = task_list[i].split("||")
+                    if info[0] == username:
+                    data += (modify_data + "\n")
+                    else:
+                    data += (task_list[i] + "\n")
+
+                    out_file = open(table_2_file, "w")
+                    out_file.write(data)
+                    out_file.close()
+
+
+                    #
+                    ---------------------------------------------------------------------------------------------------
+                    # Define a function to read all user from the file of user.txt.
+                    def read_all_user():
+                    in_file = open(table_2_file, "r")
+
+                    task_list = []
+                    for line in in_file:
+                    line = line.replace("\n", "")
+                    task_list.append(line)
+                    in_file.close()
+
+                    print(f"The total number of users are: {len(task_list)}")
+                    for i in range(0, len(task_list)):
+                    info = task_list[i].split("||")
+                    # print out user.
+                    print("--------------------------------------------")
+                    print(f"user: {info[0]}") # user
+                    # print("---------------------------------------------")
+
+
+                    # Define a function to read all user name and return.
+                    def read_all_user_name():
+                    in_file = open(table_2_file, "r")
+
+                    task_list = []
+                    for line in in_file:
+                    line = line.replace("\n", "")
+                    task_list.append(line)
+                    in_file.close()
+
+                    ret_name_dict = {}
+                    # print(f"The total number of users are: {len(task_list)}")
+                    for i in range(0, len(task_list)):
+                    info = task_list[i].split("||")
+                    ret_name_dict[i + 1] = info[0]
+
+                    return ret_name_dict
+
+
+                    #
+                    ---------------------------------------------------------------------------------------------------
+                    # Define a input function.
+                    def get_infor(message):
+                    info = ""
+                    while info == "":
+                    info = input(message).lower()
+                    if info == "":
+                    print("Input error, try again.")
+                    return info
+
+
+                    # Define a function for save information in a file.
+                    def save_info_in_file(filename, information):
+                    out_file = open(filename, "a")
+                    out_file.write("\n" + information)
+                    out_file.close()
+
+
+                    # Define a function to get username and password.
+                    def register_user():
+                    print("Please input a username and password.")
+
+                    username = ""
+                    # username = get_infor("Input username: ")
+
+                    # if username == "none": # Not allow username is none.
+                    # print("Don not allowed to use this name.")
+                    # return
+
+                    # Check username don't duplicate.
+                    while True:
+                    # if username == "none": # Not allow username is none.
+                    # print("Don not allowed to use this name.")
+
+                    username = get_infor("Input username: ")
+                    if not check_username_exists(username):
+                    break
+                    else:
+                    print("This username already exists or don't allowed, try another again.")
+
+                    password = get_infor("Input password: ")
+                    confirm_password = get_infor("Confirm your password: ")
+
+                    while confirm_password != password:
+                    print("Password input error, try again.")
+                    confirm_password = get_infor("Confirm your password: ")
+
+                    # Save user information to file.
+                    print(f"New user name and password are {username} and {password}.")
+
+                    data = username + "||" + password
+                    add_data_to_user(data)
+                    # save_info_in_file("user.txt", f"{username}, {password}")
+
+                    print("New user has registered.")
+
+
+                    # Define a function to add new task.
+                    def add_task(username):
+                    # Get the max number of task.
+                    max_number = read_max_number_of_user_task(username)
+                    title_task = get_infor("Please input the task title: ")
+                    desc_task = get_infor("Please input the description of task: ")
+                    # Get current date.
+                    today = date.today()
+                    current_date = today.strftime("%d %b %Y")
+                    # current_date = get_infor("Please input the start date(format: dd-mm-yy): ")
+                    print(f"Current date is: {current_date} ")
+                    due_date = get_infor("Please input the due date to the task like current date(format: dd MM yyyy):
+                    ")
+                    status_task = "No"
+                    max_number += 1
+                    task = username + "||" + str(
+                    max_number) + "||" + title_task + "||" + desc_task + "||" + current_date + "||" + due_date + "||" +
+                    status_task
+                    # save_info_in_file("tasks.txt", task)
+                    add_data_to_task(task)
+                    print("New task has appended.")
+
+
+                    # Define a function to get a task according to number and username.
+                    # Argument is user and the number of task.
+                    def get_task_of_user_and_number(username, number):
+                    in_file = open("tasks.txt", "r")
+                    task_list = []
+                    for line in in_file:
+                    line = line.replace("\n", "")
+                    task_list.append(line)
+                    in_file.close()
+
+                    for i in range(0, len(task_list)):
+                    info = task_list[i].split("||")
+                    if info[0] == username and info[1] == number:
+                    return task_list[i]
+
+
+                    # Define a function to edit username and due date.
+                    def edit_task_user_due(username, due_date):
+                    print(f"Current user is: {username}")
+                    user_dict = read_all_user_name()
+
+                    print("User List:")
+                    for key in user_dict.keys():
+                    print(key, user_dict[key])
+
+                    count_user = len(user_dict)
+                    choice_num = ""
+                    while True:
+                    choice_num = input(f"Please choice one user number to assigned task (1 to {count_user}): ")
+                    if 1 <= int(choice_num) <=count_user: break ret_user=user_dict[int(choice_num)]
+                        due_date=get_infor("Please input the due date to the task like current date(format: dd MM yyyy): ")
+
+    return ret_user, due_date
+
+
+# Define a function to edit task.
+# Argument is username and number of task.
+def edit_task(username, num_task):
+    in_file = open(table_1_file, " r") task_list=[] for line in in_file: line=line.replace("\n", "" )
+                        task_list.append(line) in_file.close() for i in range(0, len(task_list)):
+                        info=task_list[i].split("||") if info[0]==username and info[1]==num_task: # info[6]="Yes" # the
+                        username of the person to whom the task is assigned or the due date of the task can be edited.
+                        info[0], info[5]=edit_task_user_due(info[0], info[5]) break task_list[i]="" for j in range(0,
+                        len(info)): if j < len(info) - 1: task_list[i] +=(info[j] + "||" ) else: task_list[i] +=info[j]
+                        content="" for i in range(0, len(task_list)): content +=task_list[i] + "\n"
+                        out_file=open(table_1_file, "w" ) out_file.write(content) out_file.close() # Define a function
+                        to mark task complete. def mark_task_complete(username, num_task):
+                        in_file=open(table_1_file, "r" ) task_list=[] for line in in_file: line=line.replace("\n", "" )
+                        task_list.append(line) in_file.close() for i in range(0, len(task_list)):
+                        info=task_list[i].split("||") if info[0]==username and info[1]==num_task: info[6]="Yes" break
+                        task_list[i]="" for j in range(0, len(info)): if j < len(info) - 1: task_list[i] +=(info[j]
+                        + "||" ) else: task_list[i] +=info[j] content="" for i in range(0, len(task_list)): content
+                        +=task_list[i] + "\n" out_file=open("tasks.txt", "w" ) out_file.write(content) out_file.close()
+                        # Define a function to edit task of user. # Argument is user and the number of task. def
+                        edit_task_of_user(username, num_task): # info=get_task_of_user_and_number(username,
+                        num_task).split("||") info=search_data_from_task(username, num_task).split("||") if
+                        info[6]=="No" : # print out task. print("--------------------------------------------")
+                        print(f"Number: {info[1]}") # task number print(f"Task: {info[2]}") # task print(f"Assigned to:
+                        {info[0]}") # assigned to print(f"Data assigned: {info[4]}") # date assigned print(f"Due date:
+                        {info[5]}") # due date print(f"Task Complete? {info[6]}") # task complete print(f"Task
+                        description: \n {info[3]}") # description print("---------------------------------------------")
+                        choice_number="" while True: print("Choose '1' to mark the task as complete or choose '2' to
+                        edit the task.") choice_number=input("Type 1 or 2:") if choice_number=="1" or choice_number=="2"
+                        : break if choice_number=="1" : mark_task_complete(username, num_task) elif choice_number=="2" :
+                        edit_task(username, num_task) else: print("This task has completed.") input("Press any key to
+                        exit.") return # Define a function to operate task of user. # Argument is username and total
+                        number of task. def operate_task_of_user(username, total_num_task): print(f"Your number of tasks
+                        is {total_num_task}") num_cho="" num=0 while True: num_cho=input(f"Choose the number of task(1 -
+                        {total_num_task}) to edit, type -1 to exit): ")
+        if num_cho.isdigit():
+            num = int(num_cho)
+            if 1 <= num <= total_num_task:
+                break
+        if num_cho == " -1": return edit_task_of_user(username, num_cho) # Define a function to read the max number of
+                        user task. # Argument is username and return the max number of user task. def
+                        read_max_number_of_user_task(username): in_file=open(table_1_file, "r" ) task_list=[] for line
+                        in in_file: line=line.replace("\n", "" ) task_list.append(line) in_file.close() number_list=[]
+                        for i in range(0, len(task_list)): info=task_list[i].split("||") if info[0]==username:
+                        number_list.append(int(info[1])) sorted(number_list) return len(number_list) # Define a function
+                        to check username exists. # return True if username exists. # return False if username don't
+                        exist. def check_username_exists(username): int_ret=False if username=="none" : return True
+                        in_file=open("user.txt", "r" ) user_list=[] for line in in_file: line=line.replace("\n", "" )
+                        user_list.append(line) in_file.close() for i in range(0, len(user_list)):
+                        info=user_list[i].split("||") if info[0]==username: int_ret=True break return int_ret # Define a
+                        function to check user valid. # return True if user and password both are correct. # return
+                        False if user and password both are incorrect. def check_valid(username, password):
+                        in_file=open(table_2_file, "r" ) user_list=[] for line in in_file: line=line.replace("\n", "" )
+                        user_list.append(line) in_file.close() int_ret=False for i in range(0, len(user_list)):
+                        info=user_list[i].split("||") if info[0]==username and info[1]==password: # user and password
+                        both are correct. int_ret=True break # elif info[0]==username and info[1] !=password: # user is
+                        correct but password isn't. # int_ret=2 # break # elif info[0] !=username and info[1]==password:
+                        # user is incorrect but password is correct. # int_ret=3 # break # else: # user and password
+                        both are incorrect. # continue return int_ret # Define a function for statistics use. def
+                        statistics(): read_all_task() # Define a function to check due date. # Return True is overdue
+                        otherwise False. def check_due_date(due_date): month_str=["jan", "feb" , "mar" , "apr" , "may"
+                        , "jun" , "jly" , "agu" , "sep" , "oct" , "nov" , "dec" ] cyear=dyear=0 cmonth=dmonth=0
+                        cday=dday=0 today=date.today() current_date=today.strftime("%d %b %Y")
+                        current_date=current_date.lower() due_date=due_date.lower() cur_list=current_date.split(" ")
+    due_list = due_date.split(" ")
+
+    cday = int(cur_list[0])
+
+    for i in range(0, 12):
+        if cur_list[1] == month_str[i]:
+            cmonth = i
+            break
+
+    cyear = int(cur_list[2])
+
+    dday = int(due_list[0])
+
+    for i in range(0, 12):
+        if due_list[1] == month_str[i]:
+            dmonth = i
+            break
+
+    dyear = int(due_list[2])
+
+    if dyear < cyear:
+        return True
+    elif dyear == cyear and dmonth < cmonth:
+        return True
+    elif dyear == cyear and dmonth == cmonth and dday < cday:
+        return True
+    else:
+        return False
+
+
+# Define a function to get total number of tasks.
+'''
+    ▪ The total number of tasks that have been generated and tracked using the task_manager.py.
+    ▪ The total number of completed tasks.
+    ▪ The total number of uncompleted tasks.
+    ▪ The total number of tasks that haven’t been completed and that are overdue.
+    ▪ The percentage of tasks that are incomplete.
+    ▪ The percentage of tasks that are overdue.
+'''
+
+
+def get_total_task_number_of_statistics():
+    total_tasks = 0
+    total_completed_tasks = 0
+    total_uncompleted_tasks = 0
+    total_overdue_tasks = 0
+    total_uncompleted_and_overdue = 0
+    percent_incomplete_task = 0.0
+    percent_overdue_task = 0.0
+
+    in_file = open(table_1_file, " r") task_list=[] for line in in_file: line=line.replace("\n", "" )
+                        task_list.append(line) in_file.close() total_tasks=len(task_list) for i in range(0,
+                        len(task_list)): info=task_list[i].split("||") if info[6]=="Yes" : total_completed_tasks +=1
+                        elif info[6]=="No" : total_uncompleted_tasks +=1 if check_due_date(info[5]):
+                        total_uncompleted_and_overdue +=1 if check_due_date(info[5]): total_overdue_tasks +=1
+                        percent_incomplete_task=round(total_uncompleted_tasks / total_tasks, 2)
+                        percent_overdue_task=round(total_overdue_tasks / total_tasks, 2) return total_tasks,
+                        total_completed_tasks, total_uncompleted_tasks, total_uncompleted_and_overdue, \
+                        percent_incomplete_task, percent_overdue_task '''
+▪ The total number of users registered with task_manager.py.
+▪ The total number of tasks that have been generated and tracked using task_manager.py.
+▪ For each user also describe:
+    ▪ The total number of tasks assigned to that user.
+    ▪ The percentage of the total number of tasks that have been assigned to that user
+    ▪ The percentage of the tasks assigned to that user that have been completed
+    ▪ The percentage of the tasks assigned to that user that must still be completed
+    ▪ The percentage of the tasks assigned to that user that have not yet been completed and are overdue
+''' def get_total_user_number_of_statistics(): total_users=0 total_tasks=0 user_total_tasks=0 user_percent_tasks=0.0
+                        user_percent_complete_tasks=0.0 user_percent_uncomplete_tasks=0.0
+                        user_percent_uncomplete_and_overdue=0.0 user_task_list=[] in_file=open(table_2_file, "r" )
+                        user_list=[] for line in in_file: line=line.replace("\n", "" ) user_list.append(line)
+                        in_file.close() total_users=len(user_list) in_file=open(table_1_file, "r" ) task_list=[] for
+                        line in in_file: line=line.replace("\n", "" ) task_list.append(line) in_file.close()
+                        total_tasks=len(task_list) data=f"Total user: {total_users}\n" data +=f"Total tasks:
+                        {total_tasks}\n" data
+                        +=f"--------------------------------------------------------------------------\n"
+                        out_file=open("user_overview.txt", "w" ) out_file.write(data) out_file.close() data="" for i in
+                        range(0, len(user_list)): user_info=user_list[i].split("||") for j in range(0, len(task_list)):
+                        info=task_list[j].split("||") if user_info[0]==info[0]: user_task_list.append(task_list[j])
+                        user_total_tasks=len(user_task_list) user_percent_tasks=round(user_total_tasks/total_tasks, 2)
+                        user_completed_tasks=0 user_uncompleted_tasks=0 user_uncompleted_overdue_tasks=0 for k in
+                        range(0, len(user_task_list)): user_task_info=user_task_list[k].split("||") if
+                        user_task_info[6]=="Yes" : user_completed_tasks +=1 elif user_task_info[6]=="No" :
+                        user_uncompleted_tasks +=1 if check_due_date(user_task_info[5]): user_uncompleted_overdue_tasks
+                        +=1 if user_total_tasks !=0:
+                        user_percent_complete_tasks=round(user_completed_tasks/user_total_tasks, 2)
+                        user_percent_uncomplete_tasks=round(user_uncompleted_tasks/user_total_tasks, 2)
+                        user_percent_uncomplete_and_overdue=round(user_uncompleted_overdue_tasks/user_total_tasks, 2)
+                        data +=f"User {user_info[0]} and information:\n" data +=f"The total number of tasks assigned to
+                        this user: {user_total_tasks}\n" data +=f"The percentage of tasks assigned to this user:
+                        {int(user_percent_tasks * 100)}%\n" data +=f"The percentage of completed tasks assigned to this
+                        user: {int(user_percent_complete_tasks * 100)}%\n" data +=f"The percentage of uncompleted tasks
+                        assigned to this user: {int(user_percent_uncomplete_tasks * 100)}%\n" data +=f"The percentage of
+                        uncompleted&overdue tasks assigned to this user: {int(user_percent_uncomplete_and_overdue *
+                        100)}%\n" data +=f"--------------------------------------------------------------------------\n"
+                        out_file=open("user_overview.txt", "a" ) out_file.write(data) out_file.close() data=""
+                        user_total_tasks=0 user_percent_tasks=0.0 user_percent_complete_tasks=0.0
+                        user_percent_uncomplete_tasks=0.0 user_percent_uncomplete_and_overdue=0.0 user_task_list=[] #
+                        Define a function to generate report of task. '''
+Generate reports, two text files, called task_overview.txt and user_overview.txt, should be generated. Both
+these text files should output data in a user-friendly, easy to read manner.
+''' def generate_reports(): data="" # ----------------------------- 1 total_tasks, total_completed_tasks,
+                        total_uncompleted_tasks, total_uncompleted_and_overdue, \ percent_incomplete_task,
+                        percent_overdue_task=get_total_task_number_of_statistics() data=f"Tatol tasks: {total_tasks}\n"
+                        data +=f"Total completed tasks: {total_completed_tasks}\n" data +=f"Total uncompleted tasks:
+                        {total_uncompleted_tasks}\n" data +=f"Total uncompleted and overdue tasks:
+                        {total_uncompleted_and_overdue}\n" data +=f"The percentage of tasks that are incomplete:
+                        {int(percent_incomplete_task * 100)}%\n" data +=f"The percentage of tasks that are overdue:
+                        {int(percent_overdue_task * 100)}%\n" out_file=open("task_overview.txt", "w" )
+                        out_file.write(data) out_file.close() # --------------------------------- #
+                        --------------------------------- 2 get_total_user_number_of_statistics() # Define a function to
+                        read statistics. def read_statistics(): generate_reports()
+                        print("--------------------------------------------------------------------------")
+                        out_file=open("task_overview.txt", "r" ) for line in out_file: print(line) out_file.close()
+                        print("--------------------------------------------------------------------------")
+                        out_file=open("user_overview.txt", "r" ) for line in out_file: print(line) out_file.close() #
+                        main function entry. def main(): # login module. username="" password="" while True: while
+                        username=="" : print("It will exit if input username is none.") username=input("Input your name: ").lower()
+            if username == "":
+                print(" Input error, try again.") elif username=="none" : return while password=="" :
+                        password=input("Input your password: ").lower()
+            if password == "":
+                print(" Input error, try again.") if check_valid(username, password): print("You are login
+                        successful.") break else: print("User name or password error, try again.") username=""
+                        password="" while True: # presenting the menu to the user and # making sure that the user input
+                        is converted to lower case. if username=="admin" : # Compulsory Task Part 2.
+                        menu=input('''Select one of the following Options below: r - registering a user a - adding a
+                        task va - view all tasks vm - view my task gr - generate reports ds - display statistics e -
+                        exit : ''').lower()
+
+        else:
+            menu = input(''' Select one of the following Options below: r - registering a user a - adding a task va -
+                        view all tasks vm - view my task e - exit : ''').lower()
+
+        if menu == ' r': if username=="admin" : # Compulsory Task Part 2. register_user() '''In this block you will write code to add a new user to the user.txt file
+                  - You can follow the following steps:
+                  - Request input of a new username
+                  - Request input of a new password
+                  - Request input of password confirmation.
+                  - Check if the new password and confirmed password are the same.
+                  - If they are the same, add them to the user.txt file,
+                  - Otherwise you present a relevant message.''' else: print("Only the user 'admin' is allowed to
+                        register new users!") elif menu=='a' : add_task(username) '''In this block you will put code that will allow a user to add a new task to task.txt file
+            - You can follow these steps:
+                - Prompt a user for the following: 
+                    - A username of the person whom the task is assigned to,
+                    - A title of a task,
+                    - A description of the task and 
+                    - the due date of the task.
+                - Then get the current date.
+                - Add the data to the file task.txt and
+                - You must remember to include the ' No' to indicate if the task is complete.''' elif menu=='va' : # if
+                        username=="admin" : read_all_task() '''In this block you will put code so that the program will read the task from task.txt file and
+            print to the console in the format of Output 2 in the task PDF(i.e. include spacing and labelling)
+            You can do it in this way:
+              - Read a line from the file.
+              - Split that line where there is comma and space.
+              - Then print the results in the format shown in the Output 2 
+              - It is much easier to read a file using a for loop.''' # else: # print("Only the user 'admin' is allowed
+                        to view all tasks!") elif menu=='vm' : numbers_task=read_user_task(username)
+                        operate_task_of_user(username, numbers_task) ##################### '''In this block you will put code the that will read the task from task.txt file and
+             print to the console in the format of Output 2 in the task PDF(i.e. include spacing and labelling)
+             You can do it in this way:
+                - Read a line from the file
+                - Split the line where there is comma and space.
+                - Check if the username of the person logged in is the same as the username you have
+                read from the file.
+                - If they are the same print it in the format of Output 2 in the task PDF''' elif menu=='gr' : '''
+                When the user chooses to generate reports, two text files, called
+                task_overview.txt and user_overview.txt, should be generated. Both
+                these text files should output data in a user-friendly, easy to read manner
+            ''' generate_reports() print("Generate reports completed!") elif menu=='ds' : '''In this block you will put code so that display statistics. The all tasks and all user should be 
+            displayed. ''' read_statistics() # read_all_user() # read_all_task() elif menu=='e' : print('******
+                        Goodbye!!! *******') exit() else: print("You have made a wrong choice, Please Try again") if
+                        __name__=='__main__' : main() </xmp>
+
+            </article>
+        </section>
+        <hr>
+
+        <section class="main-section" id="OOP">
+            <header>OOP</header>
+            <article>
+                <h3>Code File</h3>
+                <xmp>
+
+                    from tabulate import tabulate
+
+
+                    #========The beginning of the class==========
+                    class Shoe:
+
+                    def __init__(self, country, code, product, cost, quantity):
+                    self.country = country
+                    self.code = code
+                    self.product = product
+                    self.cost = cost
+                    self.quantity = quantity
+                    '''
+                    In this function, you must initialise the following attributes:
+                    ● country,
+                    ● code,
+                    ● product,
+                    ● cost, and
+                    ● quantity.
+                    '''
+
+                    def get_cost(self):
+                    return self.cost
+                    '''
+                    Add the code to return the cost of the shoe in this method.
+                    '''
+
+                    # Return the code of the shoe.
+                    def get_code(self):
+                    return self.code
+
+                    def get_quantity(self):
+                    return self.quantity
+                    '''
+                    Add the code to return the quantity of the shoes.
+                    '''
+
+                    def str(self):
+                    return f"{self.country},{self.code},{self.product},{self.cost},{self.quantity}"
+                    '''
+                    Add a code to returns a string representation of a class.
+                    '''
+
+
+                    #=============Shoe list===========
+                    '''
+                    The list will be used to store a list of objects of shoes.
+                    '''
+                    shoe_list = []
+                    #==========Functions outside the class==============
+                    def read_shoes_data():
+                    '''
+                    This function will open the file inventory.txt
+                    and read the data from this file, then create a shoes object with this data
+                    and append this object into the shoes list. One line in this file represents
+                    data to create one object of shoes. You must use the try-except in this function
+                    for error handling. Remember to skip the first line using your code.
+                    '''
+                    inventory_file = None
+                    try:
+                    inventory_file = open("inventory.txt", "r")
+                    inventory_lines = inventory_file.readlines()
+
+                    for i in range(1, len(inventory_lines)):
+                    inventory_lines[i] = inventory_lines[i].replace("\n", "")
+                    lines_split = inventory_lines[i].split(",")
+                    shoe = Shoe(lines_split[0], lines_split[1], lines_split[2], lines_split[3], lines_split[4])
+                    shoe_list.append(shoe)
+
+                    except FileNotFoundError as error:
+                    print(f"Open file error: {error}")
+
+                    finally:
+                    if inventory_file is not None:
+                    inventory_file.close()
+                    print("Read data has finised!")
+
+
+                    # Define a function to get message from user.
+                    def input_message(subject):
+                    in_message = ""
+                    while len(in_message) == 0:
+                    in_message = input(subject)
+                    return in_message
+
+
+                    # Define a function to get a number from user.
+                    def input_number(subject):
+                    num = ""
+                    while not num.isdigit():
+                    num = input(subject)
+                    return int(num)
+
+
+                    def capture_shoes():
+                    '''
+                    This function will allow a user to capture data
+                    about a shoe and use this data to create a shoe object
+                    and append this object inside the shoe list.
+                    '''
+                    print("Please input 5 items below to append data in shoe list.")
+                    country = input_message("Input the country of shoe: ")
+                    code = input_message("Iput the code of shoe: ").upper()
+                    product = input_message("Input the product of shoe: ")
+                    cost = input_number("Input the cost of shoe(digit): ")
+                    quantity = input_number("Input the quantity of shoe(digit): ")
+                    shoe = Shoe(country, code, product, cost, quantity)
+                    shoe_list.append(shoe)
+                    # Update new data in file.
+                    data = "Country,Code,Product,Cost,Quantity\n"
+                    for i in range(0, len(shoe_list)):
+                    data += (shoe_list[i].str() + "\n")
+                    update_data(data)
+
+                    print("Capture shoe data has finished!")
+
+
+                    def view_all():
+                    '''
+                    This function will iterate over the shoes list and
+                    print the details of the shoes returned from the __str__
+                    function. Optional: you can organise your data in a table format
+                    by using Python's tabulate module.
+                    '''
+                    if len(shoe_list) > 0:
+                    table_header = ['Country', 'Code', 'Product', 'Cost', 'Quantity']
+                    table_data = []
+                    for object in shoe_list:
+                    table_data.append(object.str())
+                    print("'Country', 'Code', 'Product', 'Cost', 'Quantity'")
+                    print(tabulate(table_data)) #, headers=table_header)) #, tablefmt='grid'))
+                    else:
+                    print("No data found!")
+
+                    # Define a function to update data in file.
+                    def update_data(data):
+                    file = None
+                    try:
+                    file = open("inventory.txt", "w")
+                    file.write(data)
+                    except FileExistsError as error:
+                    print(f"Open file to write data error: {error}")
+                    finally:
+                    if file is not None:
+                    file.close()
+
+
+                    def re_stock():
+                    '''
+                    This function will find the shoe object with the lowest quantity,
+                    which is the shoes that need to be re-stocked. Ask the user if they
+                    want to add this quantity of shoes and then update it.
+                    This quantity should be updated on the file for this shoe.
+                    '''
+                    if len(shoe_list) > 0:
+                    # 1) Define a dict to store information from shoe object. key is code, value is quantity.
+                    shoe_dict = {}
+
+                    for object in shoe_list:
+                    shoe_dict[object.get_code()] = int(object.get_quantity())
+
+                    # 2) Sort dict.
+                    sort_shoe_dict = dict(sorted(shoe_dict.items(), key=lambda x: x[1]))
+
+                    # 3) The 1st item is lowest quantity value.
+                    lowest_code = ""
+                    lowest_quantity = 0
+                    for key, value in sort_shoe_dict.items():
+                    lowest_code = key
+                    lowest_quantity = value
+                    break
+
+                    # 4) Ask the user if they want to be re-stocked.
+                    print(f"The shoe's code {lowest_code}, quantity is lowest: {lowest_quantity}, waiting for
+                    re-stock.")
+                    choice_message = ""
+                    while True:
+                    choice_message = input_message("Do you want to re-stocked for this shoe? Choose 'y'(Yes) or 'n'(No)
+                    please.")
+                    if choice_message == 'y' or choice_message == 'n':
+                    break
+                    if choice_message == 'y':
+                    choice_number = input_number("Please input a number to be re-stocked this shoe: ")
+
+
+                    # 5) Confirm need re-stock by the user, then update shoe object list and update the file.
+                    for i in range(0, len(shoe_list)):
+                    if lowest_code == shoe_list[i].get_code(): # Delete old object in list
+                    split_items = shoe_list[i].str().split(",")
+                    del shoe_list[i]
+                    break
+
+                    # 6) Append new object in list.
+                    shoe_list.append(Shoe(split_items[0], split_items[1], split_items[2], split_items[3],
+                    choice_number))
+
+                    # 7) Update new data in file.
+                    data = "Country,Code,Product,Cost,Quantity\n"
+                    for i in range(0, len(shoe_list)):
+                    data += (shoe_list[i].str() + "\n")
+
+                    update_data(data)
+                    print("Re-stock has finished!")
+                    else:
+                    print("No action to re-stock.")
+
+                    else:
+                    print("No data found!")
+
+
+                    def search_shoe(code):
+                    '''
+                    This function will search for a shoe from the list
+                    using the shoe code and return this object so that it will be printed.
+                    '''
+                    if len(shoe_list) > 0:
+                    return_str = ""
+                    for object in shoe_list:
+                    if code.upper() == object.get_code():
+                    return_str = object.str()
+                    print(f"The shoe's {code} has been found and the information is: {object.str()}")
+                    if len(return_str) == 0:
+                    print(f"No data found by this {code}!")
+                    else:
+                    print("No data found!")
+
+
+                    def value_per_item():
+                    '''
+                    This function will calculate the total value for each item.
+                    Please keep the formula for value in mind: value = cost * quantity.
+                    Print this information on the console for all the shoes.
+                    '''
+
+                    if len(shoe_list) > 0:
+                    for object in shoe_list:
+                    print(f"The shoe code: {object.get_code()}, it's total value is: {int(object.get_cost()) *
+                    int(object.get_quantity())}")
+                    else:
+                    print("No data found!")
+
+
+                    def highest_qty():
+                    '''
+                    Write code to determine the product with the highest quantity and
+                    print this shoe as being for sale.
+                    '''
+                    if len(shoe_list) > 0:
+                    # 1) Define a dict to store information from shoe object. key is code, value is quantity.
+                    shoe_dict = {}
+
+                    for object in shoe_list:
+                    shoe_dict[object.get_code()] = int(object.get_quantity())
+
+                    # 2) Sort dict.
+                    sort_shoe_dict = dict(sorted(shoe_dict.items(), key=lambda x: x[1], reverse=True))
+
+                    # 3) The 1st item is highest quantity value.
+                    highest_code = ""
+                    highest_quantity = 0
+                    for key, value in sort_shoe_dict.items():
+                    highest_code = key
+                    highest_quantity = value
+                    break
+
+                    print(f"The shoe's {highest_code}, stock is highest: {highest_quantity}, waiting for sale.")
+                    else:
+                    print("No data found!")
+
+
+                    #==========Main Menu=============
+                    '''
+                    Create a menu that executes each function above.
+                    This menu should be inside the while loop. Be creative!
+                    '''
+                    def main_menu():
+
+                    print(" ------------------ Main Menu -----------------------------------")
+                    print(" rd: Read all data out from file and put it in shoe list.")
+                    print(" cs: Caputure one shoe data from user and add it in shoe list.")
+                    print(" va: View all data from the shoe list.")
+                    print(" rs: Find the lowest quantity of shoe and ask to re-stock.")
+                    print(" ss: Search one shoe data by code.")
+                    print(" vv: View every shoe's value, value = cost x quantity")
+                    print(" hq: Find the highest quantity of shoe.")
+                    print(" q: Quit.")
+                    print(" ----------------------------------------------------------------")
+
+
+
+                    # Define main function entry.
+                    def main():
+                    while True:
+                    main_menu()
+                    user_choice = input("Please choose one item from list to run application: ")
+                    print()
+                    if user_choice == "rd":
+                    read_shoes_data()
+                    elif user_choice == "cs":
+                    capture_shoes()
+                    elif user_choice == "va":
+                    view_all()
+                    elif user_choice == "rs":
+                    re_stock()
+                    elif user_choice == "ss":
+                    code = input_message("Please input the code of product to search information: ")
+                    search_shoe(str(code))
+                    elif user_choice == "vv":
+                    value_per_item()
+                    elif user_choice == "hq":
+                    highest_qty()
+                    elif user_choice == "q":
+                    print("*************** Goodbye *****************")
+                    break
+                    else:
+                    print("Choose error, try again!")
+                    print()
+
+
+                    if __name__ == '__main__':
+                    main()
+
+
+                </xmp>
+
+            </article>
+        </section>
+        <hr>
+
+        <section class="main-section" id="Databases">
+            <header>Databases</header>
+            <article>
+                <h3>Code File</h3>
+                <xmp>
+                    import sqlite3
+
+
+                    # Define a open database funciton.
+                    def open_database(db_file_path):
+                    db = None
+                    try:
+                    db = sqlite3.connect(db_file_path)
+                    # Catch the exception.
+                    except Exception as e:
+                    # Roll back any change if something goes wrong.
+                    db.rollback()
+                    raise e
+                    return db
+
+
+                    # Define a close database function.
+                    def close_database(db):
+                    if db != None:
+                    db.close()
+
+
+                    # Define a Add function.
+                    def add_record(db, book_record):
+                    ret_val = False
+                    try:
+                    cursor = db.cursor()
+                    cursor.execute(''' INSERT INTO books(id, Title, Author, Qty) VALUES(?, ?, ?, ?)''', book_record)
+                    # Commit the change.
+                    db.commit()
+                    ret_val = True
+                    except Exception as e:
+                    db.rollback()
+                    raise e
+                    finally:
+                    return ret_val
+
+
+                    # Define a Update function.
+                    # u_token is position to update column of record.
+                    def update_record(db, u_item, u_token):
+                    # Change record.
+                    ret_val = False
+                    try:
+                    cursor = db.cursor()
+                    if u_token == 0:
+                    cursor.execute('''UPDATE books SET Title=? WHERE id=?''',(u_item[1], u_item[0]))
+                    elif u_token == 1:
+                    cursor.execute('''UPDATE books SET Author=? WHERE id=? ''', (u_item[1], u_item[0]))
+                    elif u_token == 2:
+                    cursor.execute('''UPDATE books SET Qty=? WHERE id=? ''', (u_item[1], u_item[0]))
+                    elif u_token == 3:
+                    cursor.execute('''UPDATE books SET Title=?, Author=?, Qty=? WHERE id=? ''', (u_item[1], u_item[2],
+                    u_item[3], u_item[0]))
+                    db.commit()
+                    ret_val = True
+                    except Exception as e:
+                    db.rollback()
+                    raise e
+                    return ret_val
+
+
+                    # Define a Delete funciton.
+                    # del_token is a position of data column for delete using.
+                    def delete_record(db, del_item, del_token):
+                    ret_val = False
+                    try:
+                    cursor = db.cursor()
+
+                    if del_token == 0:
+                    cursor.execute('''DELETE FROM books WHERE id = ? ''', (del_item,))
+                    elif del_token == 1:
+                    cursor.execute('''DELETE FROM books WHERE Title = ? ''', (del_item,))
+                    elif del_token == 2:
+                    cursor.execute('''DELETE FROM books WHERE Author = ? ''', (del_item,))
+                    elif del_token == 3:
+                    cursor.execute('''DELETE FROM books WHERE Qty = ? ''', (del_item,))
+                    elif del_token == 4:
+                    cursor.execute('''DELETE FROM books WHERE Title = ? AND Author = ?''', (del_item[0], del_item[1]))
+                    db.commit()
+                    ret_val = True
+                    except Exception as e:
+                    db.rollback()
+                    raise e
+                    return ret_val
+
+
+                    # Define a Search function.
+                    # search_token is a position of data column for search using.
+                    def search_record(db, search_item, search_token):
+                    try:
+                    cursor = db.cursor()
+                    if search_token == 0:
+                    cursor.execute('''SELECT * FROM books WHERE id=?''',(search_item,))
+                    #db.commit()
+
+                    elif search_token == 1:
+                    cursor.execute('''SELECT * FROM books WHERE Title=?''',(search_item,))
+                    #db.commit()
+
+                    elif search_token == 2:
+                    cursor.execute('''SELECT * FROM books WHERE Author=?''',(search_item,))
+                    #db.commit()
+
+                    elif search_token == 3:
+                    cursor.execute('''SELECT * FROM books WHERE Qty=?''',(search_item,))
+                    #db.commit()
+
+                    elif search_token == 4:
+                    cursor.execute('''SELECT * FROM books''')
+                    #db.commit()
+
+                    except Exception as e:
+                    db.rollback()
+                    raise e
+                    return cursor
+
+
+                    # Define a function for Enter a book record.
+                    def enter_book(db):
+                    id = input_number("Input the id number for book please: ")
+                    title = input_message("Input the title for book please: ")
+                    author = input_message("Input the author for book please: ")
+                    qty = input_number("Input the quantity for book please: ")
+
+                    book_record = (id, title, author, qty)
+
+                    if add_record(db, book_record):
+                    print("To append one record of book is successful!")
+                    else:
+                    print("To append one record of book is failed, try again!")
+
+                    # Define a function to confirm the item exist in database.
+                    # col_pos is position in the column.
+                    def check_item(db, item, col_pos):
+                    ret_val = False
+                    try:
+                    cursor = db.cursor()
+                    if col_pos == 1:
+                    cursor.execute('''SELECT * FROM books WHERE id=?''',(item,))
+                    if cursor.fetchone() != None:
+                    ret_val = True
+                    elif col_pos == 2:
+                    cursor.execute('''SELECT * FROM books WHERE Title=?''',(item,))
+                    if cursor.fetchone() != None:
+                    ret_val = True
+                    elif col_pos == 3:
+                    cursor.execute('''SELECT * FROM books WHERE Author=?''',(item,))
+                    if cursor.fetchone() != None:
+                    ret_val = True
+                    elif col_pos == 4:
+                    cursor.execute('''SELECT * FROM books WHERE Qty=?''',(item,))
+                    if cursor.fetchone() != None:
+                    ret_val = True
+
+                    except Exception as e:
+                    raise e
+                    return ret_val
+
+
+                    # Define a function for Update a book record.
+                    def update_book(db):
+                    u_item = []
+                    id = input_number("Input the book id for update record please: ")
+
+                    if check_item(db, id, 1):
+                    unum = input_number("Choose a number for undate book record, 1 is title, 2 is author, 3 is quantity,
+                    4 is title/author/quantity: ")
+                    u_item.append(id)
+                    if unum == 1:
+                    title = input_message("Input the title to update book record please: ")
+                    u_item.append(title)
+                    if update_record(db, u_item, 0):
+                    print("Update record successful!")
+                    else:
+                    print("Update record failed, try again!")
+                    elif unum == 2:
+                    author = input_message("Input the author to update book record please: ")
+                    u_item.append(author)
+                    if update_record(db, u_item, 1):
+                    print("Update record successful!")
+                    else:
+                    print("Update record failed, try again!")
+                    elif unum == 3:
+                    qty = input_number("Input the quantity to update book record please: ")
+                    u_item.append(qty)
+                    if update_record(db, u_item, 2):
+                    print("Update record successful!")
+                    else:
+                    print("Update record failed, try again!")
+                    elif unum == 4:
+                    u_item.append(input_message("Input the title to update book record please: "))
+                    u_item.append(input_message("Input the author to update book record please: "))
+                    u_item.append(input_number("Input the quantity to update book record please: "))
+                    if update_record(db, u_item, 3):
+                    print("Update record successful!")
+                    else:
+                    print("Update record failed, try again!")
+                    else:
+                    print("Choose number error, try again!")
+                    else:
+                    print("Input id error, try again!")
+
+
+                    # Define a function for Delete a book record.
+                    def delete_book(db):
+                    dnum = input_number("Choose a number for delete book, 1 is id, 2 is title, 3 is author, 4 is
+                    quantity, 5 is title and author: ")
+                    if dnum == 1:
+                    id = input_number("Input the id number for book delete please: ")
+                    if check_item(db, id, 1):
+                    if delete_record(db, id, 0):
+                    print("Delete record successful!")
+                    else:
+                    print("No this id found, try again!")
+                    elif dnum == 2:
+                    title = input_message("Input the title for book delete please: ")
+                    if check_item(db, title, 2):
+                    if delete_record(db, title, 1):
+                    print("Delete record successful!")
+                    else:
+                    print("No this title found! try again!")
+                    elif dnum == 3:
+                    author = input_message("Input the author for book delete please: ")
+                    if check_item(db, author, 3):
+                    if delete_record(db, author, 2):
+                    print("Delete record successful!")
+                    else:
+                    print("No this author found, try again!")
+                    elif dnum == 4:
+                    qty = input_number("Input the quantity for book delete please: ")
+                    if check_item(db, qty, 4):
+                    if delete_record(db, qty, 3):
+                    print("Delete record successful!")
+                    else:
+                    print("No this qty found, try again!")
+                    elif dnum == 5:
+                    del_item = []
+                    title = input_message("Input the title first for book delete please: ")
+                    if check_item(db, title, 2):
+                    del_item.append(title)
+                    author = input_message("Input the author second for book delete please: ")
+                    if check_item(db, author, 3):
+                    del_item.append(author)
+                    if delete_record(db, del_item, 4):
+                    print("Delete record successful!")
+                    else:
+                    print("Delte record failed! try again!")
+                    else:
+                    print("No this author found, try again.")
+                    else:
+                    print("No this title found, try again.")
+                    else:
+                    print("Choose number error, try again!")
+
+
+                    # Define a function for Search the books record.
+                    def search_books(db):
+                    snum = input_number("Choose a number for search books, 1 is id, 2 is title, 3 is author, 4 is
+                    quantity: ")
+                    if snum == 1:
+                    id = input_number("Input the id number for book searching please: ")
+                    cursor = search_record(db, id, 0)
+                    # if cursor.fetchone() != None:
+                    print("Searching result: ")
+                    for row in cursor:
+                    print(f"Id: {row[0]}, Title: {row[1]}, Author: {row[2]}, Quantity: {row[3]}")
+                    # else:
+                    # print("No result found!")
+                    elif snum == 2:
+                    title = input_message("Input the title for book searching please: ")
+                    cursor = search_record(db, title, 1)
+                    # if cursor.fetchone() != None:
+                    print("Searching result: ")
+                    for row in cursor:
+                    print(f"Id: {row[0]}, Title: {row[1]}, Author: {row[2]}, Quantity: {row[3]}")
+                    # else:
+                    # print("No result found!")
+                    elif snum == 3:
+                    author = input_message("Input the author for book searching please: ")
+                    cursor = search_record(db, author, 2)
+                    # if cursor.fetchone() != None:
+                    print("Searching result: ")
+                    for row in cursor:
+                    print(f"Id: {row[0]}, Title: {row[1]}, Author: {row[2]}, Quantity: {row[3]}")
+                    # else:
+                    # print("No result found!")
+                    elif snum == 4:
+                    qty = input_number("Input the quantity for book searching please: ")
+                    cursor = search_record(db, qty, 3)
+                    # if cursor.fetchone() != None:
+                    print("Searching result: ")
+                    for row in cursor:
+                    print(f"Id: {row[0]}, Title: {row[1]}, Author: {row[2]}, Quantity: {row[3]}")
+                    # else:
+                    # print("No result found!")
+                    else:
+                    print("Choose number error, try again!")
+
+
+                    # Define a function for Search all books record.
+                    def view_all_books(db):
+                    cursor = search_record(db, 0, 4)
+                    # if cursor.fetchone() != None:
+                    print("Searching result: ")
+                    for row in cursor:
+                    print(f"Id: {row[0]} | Title: {row[1]} | Author: {row[2]} | Quantity: {row[3]}")
+                    # else:
+                    # print("No result found!")
+
+
+                    # Define a menu function.
+                    def main_menu():
+
+                    print(" ------------------ Bookstore Management ------------------------")
+                    print(" 1: Enter book.")
+                    print(" 2: Update book.")
+                    print(" 3: Delete book.")
+                    print(" 4: Search books.")
+                    print(" 5: View all records.")
+                    print(" 0: Quit.")
+                    print(" ----------------------------------------------------------------")
+
+
+                    # Define a function to get message from user.
+                    def input_message(subject):
+                    in_message = ""
+                    while len(in_message) == 0:
+                    in_message = input(subject)
+                    return in_message
+
+
+                    # Define a function to get a number from user.
+                    def input_number(subject):
+                    num = ""
+                    while not num.isdigit():
+                    num = input(subject)
+                    return int(num)
+
+
+                    # Main function entry.
+                    def main():
+
+                    db = None
+                    try:
+                    # Open the database.
+                    db = open_database('data/ebookstore.db')
+                    if db == None:
+                    print("Open database failed, try again!")
+                    else:
+                    while True:
+                    main_menu()
+                    print()
+                    choice_num = input_number("Choose a number to operate the book store management system: ")
+                    print()
+                    if choice_num == 1:
+                    enter_book(db)
+                    print()
+                    elif choice_num == 2:
+                    update_book(db)
+                    print()
+                    elif choice_num == 3:
+                    delete_book(db)
+                    print()
+                    elif choice_num == 4:
+                    search_books(db)
+                    print()
+                    elif choice_num == 5:
+                    view_all_books(db)
+                    print()
+                    elif choice_num == 0:
+                    print("***** Good bye! *****")
+                    print()
+                    break
+                    else:
+                    print("Choose error, try again!")
+                    print()
+
+                    # Catch the exception.
+                    except Exception as e:
+                    raise e
+                    finally:
+                    # Close the db connection.
+                    close_database(db)
+
+
+                    # Define main funcition.
+                    if __name__ == '__main__':
+                    main()
+
+
+                </xmp>
+
+            </article>
+        </section>
+
+    </main>
+</body>
+
+</html>
