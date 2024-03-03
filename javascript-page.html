@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="JavaScript Samples" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>JavaScript Samples</title>
+</head>
+
+<body>
+    <nav id="navbar">
+        <header>JavaScript Samples</header>
+        <ul>
+            <li><a class="nav-link" href="#Palindrome Checker">Palindrome Checker</a></li>
+            <li><a class="nav-link" href="#Roman Numeral Converter">Roman Numeral Converter</a></li>
+            <li><a class="nav-link" href="#Caesars Cipher">Caesars Cipher</a></li>
+            <li><a class="nav-link" href="#Telephone Number Validator">Telephone Number Validator</a></li>
+            <li><a class="nav-link" href="#Cash Register">Cash Register</a></li>
+        </ul>
+    </nav>
+
+    <main id="main-doc">
+        <section class="main-section" id="Title">
+            <header>JavaScript Samples</header>
+        </section>
+
+        <hr>
+        <section class="main-section" id="Palindrome Checker">
+            <header>Palindrome Checker</header>
+            <article>
+                <h3>Code File</h3>
+                <xmp>
+                    function palindrome(str) 
+                    {
+                        str = str.replace(/[\W_]/g, '').toLowerCase();
+                        return str === str.split('').reverse().join('');
+                    }
+
+                    palindrome("eye");
+
+                </xmp>
+            </article>
+        </section>
+
+        <hr>
+        <section class="main-section" id="Roman Numeral Converter">
+            <header>Roman Numeral Converter</header>
+            <article>
+                <h3>Code File</h3>
+                <xmp>
+                    function convertToRoman(num) 
+                    {
+                        const romanToNumMap = 
+                        {
+                            M: 1000,
+                            CM: 900,
+                            D: 500,
+                            CD: 400,
+                            C: 100,
+                            XC: 90,
+                            L: 50,
+                            XL: 40,
+                            X: 10,
+                            IX: 9,
+                            V: 5,
+                            IV: 4,
+                            I: 1
+                        };
+                        let result = '';
+
+                        for (let key in romanToNumMap) 
+                        {
+                            while (num >= romanToNumMap[key]) 
+                            {
+                                result += key;
+                                num -= romanToNumMap[key];
+                            }
+                        }
+                        return result;
+                    }
+
+                    convertToRoman(36);
+                </xmp>
+            </article>
+        </section>
+
+        <hr>
+        <section class="main-section" id="Caesars Cipher">
+            <header>Caesars Cipher</header>
+            <article>
+                <h3>Code File</h3>
+                <xmp>
+                    function rot13(str)
+                    {
+                        let newStr = "";
+                        for (let i = 0; i < str.length; i++) 
+                        { 
+                            let charCode=str.charCodeAt(i); 
+                            if (charCode>= 65 && charCode <= 90) 
+                            { 
+                                charCode=((charCode - 65 + 13) % 26) + 65; 
+                            } 
+                            newStr +=String.fromCharCode(charCode); 
+                        }
+                        return newStr; 
+                    } 
+                    rot13("SERR PBQR PNZC"); 
+                </xmp>
+
+            </article>
+        </section>
+        <hr>
+
+        <section class="main-section" id="Telephone Number Validator">
+            <header>Telephone Number Validator</header>
+            <article>
+                <h3>Code File</h3>
+                <xmp>
+                    function telephoneCheck(str)
+                    {
+                        let phoneRegex = /^(1\s?)?(\(\d{3}\)|\d{3})[-\s]?\d{3}[-\s]?\d{4}$/;
+                        return phoneRegex.test(str);
+                    }
+
+                    telephoneCheck("555-555-5555");
+                </xmp>
+
+            </article>
+        </section>
+        <hr>
+
+        <section class="main-section" id="Cash Register">
+            <header>Cash Register</header>
+            <article>
+                <h3>Code File</h3>
+                <xmp>
+                    function checkCashRegister(price, cash, cid) {
+                    let change = cash - price;
+                    let currencyValues = [
+                    ["PENNY", 0.01],
+                    ["NICKEL", 0.05],
+                    ["DIME", 0.1],
+                    ["QUARTER", 0.25],
+                    ["ONE", 1],
+                    ["FIVE", 5],
+                    ["TEN", 10],
+                    ["TWENTY", 20],
+                    ["ONE HUNDRED", 100]
+                    ];
+
+                    let totalCid = cid.reduce((acc, curr) => acc + curr[1], 0);
+                    if (totalCid < change) 
+                    { 
+                        return { status: "INSUFFICIENT_FUNDS" , change: [] }; 
+                    } 
+                    else if (totalCid===change) 
+                    { 
+                        return { status: "CLOSED" , change: cid }; 
+                    } 
+                    else 
+                    { 
+                        let changeArr=[]; 
+                        for(let i=currencyValues.length - 1; i>= 0; i--)
+                        {
+                            let currName = currencyValues[i][0];
+                            let currValue = currencyValues[i][1];
+                            let currTotalValue = cid[i][1];
+                            let amount = 0;
+
+                            while (change >= currValue && currTotalValue > 0)
+                            {
+                                change -= currValue;
+                                currTotalValue -= currValue;
+                                amount += currValue;
+                                change = Math.round(change * 100) / 100;
+                            }
+
+                            if (amount)
+                            {
+                                changeArr.push([currName, amount]);
+                            }
+                        }
+
+                        if (change !== 0)
+                        {
+                            return { status: "INSUFFICIENT_FUNDS", change: [] };
+                        }
+                        else
+                        {
+                            return { status: "OPEN", change: changeArr };
+                        }
+                    }
+                }
+
+                checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER",
+                        4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);
+                </xmp>
+
+            </article>
+        </section>
+
+    </main>
+</body>
+
+</html>
