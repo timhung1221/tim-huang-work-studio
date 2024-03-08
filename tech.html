@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="private CV" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>tech-tip</title>
+</head>
+
+<body>
+    <nav id="navbar">
+        <header>Tech Tip</header>
+        <ul>
+            <li><a class="nav-link" href="#Binary Tree">Binary Tree</a></li>
+            <li><a class="nav-link" href="#Bubble Sort">Bubble Sort</a></li>
+            <li><a class="nav-link" href="#Quick Sort">Quick Sort</a></li>
+            <li><a class="nav-link" href="#Insert Sort">Insert Sort</a></li>
+            <li><a class="nav-link" href="#Shell Sort">Shell Sort</a></li>
+        </ul>
+    </nav>
+
+    <main id="main-doc">
+        <section class="main-section" id="Binary Tree">
+            <header>Binary Tree</header>
+            <article>
+                <pre>
+                    namespace BinaryTreeSeek
+                    {
+                        internal class Node
+                        {
+                            public int data;
+                            public Node left, right;
+                    
+                            public Node(int value)
+                            {
+                                data = value;
+                                left = right = null;
+                            }
+                    
+                            public bool IsLeaf
+                            {
+                                get { return left == null && right == null; }
+                            }
+                    
+                            public int MaxDepth
+                            {
+                                get 
+                                {
+                                    return Math.Max((left == null ? 0 : left.MaxDepth) + 1, (right == null ? 0 : right.MaxDepth) + 1); 
+                                }
+                            }
+                        }
+                    }
+                    
+                    using System;
+                    using System.Collections;
+                    using System.Collections.Generic;
+                    using System.ComponentModel;
+                    using System.Data;
+                    using System.Drawing;
+                    using System.Drawing.Imaging;
+                    using System.Linq;
+                    using System.Runtime.CompilerServices;
+                    using System.Text;
+                    using System.Threading.Tasks;
+                    using System.Windows.Forms;
+                    using System.Xml.Linq;
+                    
+                    namespace BinaryTreeSeek
+                    {
+                        public partial class frmMain : Form
+                        {
+                            public struct NodePos
+                            {
+                                public int head_dir; // node 的来源方向箭头，分左:1, 右:2, 无:0。
+                                public Point p; // coordinate x,y.
+                                public string content; // display content.
+                                public int top_bot; // set top or bottom as position duplicate. 0 for top and 1 for bottom.
+                            }
+                    
+                            BinaryTree bst;
+                            //Bitmap canvas;
+                            //Graphics gMain;
+                            int radius = 25; //diameter
+                            int iDist = 12;
+                            int lDist = 80;
+                            int rDist = 40;
+                            public List<NodePos> nodePos;
+                            
+                            public frmMain()
+                            {
+                                InitializeComponent();
+                                nodePos = new List<NodePos>();
+                            }
+                    
+                            private Point InitialCanvas()
+                            {
+                                int iLeftDist = 0;
+                                int iRightDist = 0;
+                                int iHeight = 0;
+                                int iNewWidth = 0;
+                                int iNewHeight = 0;
+                                Point p = new Point(10, 10);
+                    
+                                foreach (NodePos np in nodePos)
+                                {
+                                    if(np.p.X < 0)
+                                    {
+                                        if(iLeftDist < Math.Abs(np.p.X)) // 找出最大的那个值。
+                                        {
+                                            iLeftDist = Math.Abs(np.p.X);// + radius + lDist + iDist;
+                                            //lstNodeList.Items.Insert(0, "-----Left overflow-----");
+                                        }
+                                    }
+                                    if (np.p.X > (picCanvas.Width))
+                                    {
+                                        if(iRightDist < (np.p.X - picCanvas.Width))
+                                        {
+                                            iRightDist = np.p.X - picCanvas.Width;// + radius + rDist + iDist;
+                                            //lstNodeList.Items.Insert(0, "-----Right overflow-----");
+                                        }
+                                    }
+                                    if(np.p.Y > (picCanvas.Height))
+                                    {
+                                        if(iHeight < (np.p.Y - picCanvas.Height))
+                                        {
+                                            iHeight = np.p.Y - picCanvas.Height;// + radius + iDist;
+                                            //lstNodeList.Items.Insert(0, "-----Height overflow------");
+                                        }
+                                    }
+                                }
+                    
+                                if(iLeftDist > 0)
+                                {
+                                    iLeftDist += radius;
+                                    IncreasePoint(iLeftDist);
+                                }
+                                if(iRightDist > 0)
+                                {
+                                    iRightDist += radius;
+                                }
+                    
+                                iNewWidth = iLeftDist + iRightDist + picCanvas.Width;
+                                iNewHeight = iHeight + picCanvas.Height;
+                    
+                                p.X = iNewWidth;
+                                p.Y = iNewHeight;
+                    
+                                return p;
+                            }
+                    
+                            private void IncreasePoint(int dist)
+                            {
+                                NodePos localNP = new NodePos();
+                    
+                                for (int i=0; i < nodePos.Count; i++)
+                                {
+                                    localNP.content = nodePos[i].content;
+                                    localNP.head_dir = nodePos[i].head_dir;
+                                    localNP.top_bot = nodePos[i].top_bot;
+                                    localNP.p.X = nodePos[i].p.X + dist;
+                                    localNP.p.Y = nodePos[i].p.Y;
+                    
+                                    nodePos[i] = localNP;
+                                }
+                    
+                            }
+                    
+                            private void btnExit_Click(object sender, EventArgs e)
+                            {
+                                Application.Exit();
+                            }
+                    
+                            private bool CheckPosDup(NodePos inNp)
+                            {
+                                bool bRet = false;
+                    
+                                foreach(NodePos np in nodePos)
+                                {
+                                    if(inNp.p.Equals(np.p) && inNp.head_dir == np.head_dir)
+                                    {
+                                        bRet = true;
+                                        break;
+                                    }
+                                }
+                    
+                                return bRet;
+                            }
+                    
+                            private void RecordNodePosition(int headDir, Node root, Point point)
+                            {
+                                NodePos np = new NodePos();
+                    
+                                if (root != null)
+                                {
+                                    // 记录根节点
+                                    np.head_dir = headDir;
+                                    np.content = root.data.ToString();
+                                    np.p = point;
+                                    np.top_bot = 0;
+                                    // 查找有没重复位置的，根据坐标和左右。
+                                    if (CheckPosDup(np)) // Found duplicate item.
+                                    {
+                                        np.top_bot = 1;
+                                    }
+                                    nodePos.Add(np);
+                    
+                                    // 记录左子树
+                                    if (root.left != null)
+                                    {
+                                        Point leftPoint = new Point(point.X - lDist, point.Y + rDist);
+                                        RecordNodePosition(1, root.left, leftPoint);
+                                    }
+                    
+                                    // 记录右子树
+                                    if (root.right != null)
+                                    {
+                                        Point rightPoint = new Point(point.X + lDist, point.Y + rDist);
+                                        RecordNodePosition(2, root.right, rightPoint);
+                                    }
+                                }
+                            }
+                    
+                            //Ctrl + K, Ctrl + F === format selected text.
+                    
+                            private Bitmap DrawMap(Point p)
+                            {
+                                //Creat a object of bitmap.
+                                Bitmap canvas = new Bitmap(p.X, p.Y);//picCanvas.ClientSize.Width, picCanvas.ClientSize.Height);
+                    
+                                //Creat a object of graphic from bitmap to draw picture.
+                                Graphics g = Graphics.FromImage(canvas);
+                    
+                                //Paint color of background.
+                                g.Clear(Color.White);
+                    
+                                foreach (NodePos np in nodePos)
+                                {
+                                    g.DrawEllipse(new Pen(Color.Black, 2f), np.p.X - radius, np.p.Y - radius, radius * 2, radius * 2);
+                    
+                                    if (np.head_dir == 0)// 绘制根节点
+                                    {
+                                        //root node.
+                                        g.DrawString(np.content, Font, Brushes.Black, new Point(np.p.X - iDist / 2, np.p.Y - iDist / 2));
+                                    }
+                                    else if (np.head_dir == 1)// 绘制左子树
+                                    {
+                                        g.DrawLine(new Pen(Color.Black, 2f), new Point(np.p.X, np.p.Y - radius), new Point(np.p.X, np.p.Y + radius));
+                    
+                                        if (np.top_bot == 0)
+                                        {
+                                            g.DrawString(np.content, Font, Brushes.Black, new Point(np.p.X - iDist + radius / 2 + 2, np.p.Y - iDist));
+                                        }
+                                        else
+                                        {
+                                            g.DrawString(np.content, Font, Brushes.Black, new Point(np.p.X - iDist + radius / 2 + 2, np.p.Y + iDist / 2 - 2));
+                                        }
+                    
+                                        g.DrawLine(new Pen(Color.Black, 2f), new Point(np.p.X + lDist - radius, np.p.Y - rDist), new Point(np.p.X + radius, np.p.Y));
+                                    }
+                                    else if (np.head_dir == 2)// 绘制右子树
+                                    {
+                                        g.DrawLine(new Pen(Color.Black, 2f), new Point(np.p.X, np.p.Y - radius), new Point(np.p.X, np.p.Y + radius));
+                    
+                                        if (np.top_bot == 0)
+                                        {
+                                            g.DrawString(np.content, Font, Brushes.Black, new Point(np.p.X - iDist - radius / 2 + 2, np.p.Y - iDist));
+                                        }
+                                        else
+                                        {
+                                            g.DrawString(np.content, Font, Brushes.Black, new Point(np.p.X - iDist - radius / 2 + 2, np.p.Y + iDist / 2 - 2));
+                                        }
+                    
+                                        g.DrawLine(new Pen(Color.Black, 2f), new Point(np.p.X - lDist + radius, np.p.Y - rDist), new Point(np.p.X - radius, np.p.Y));
+                                    }
+                                }
+                                return canvas;
+                            }
+                    
+                            //1st method to draw from Claude. Current using.
+                            private void DrawTree(Graphics g, Node root, Point point)
+                            {
+                                if (root != null)
+                                {
+                                    // 绘制根节点
+                                    g.DrawEllipse(new Pen(Color.Black, 2f), point.X - radius, point.Y - radius, radius * 2, radius * 2);
+                                    g.DrawString(root.data.ToString(), Font, Brushes.Black, new Point(point.X - iDist, point.Y - iDist));
+                    
+                                    // 绘制左子树
+                                    if (root.left != null)
+                                    {
+                                        Point leftPoint = new Point(point.X - lDist, point.Y + rDist);
+                                        DrawTree(g, root.left, leftPoint);
+                                        g.DrawLine(new Pen(Color.Black), new Point(point.X - radius, point.Y), new Point(leftPoint.X + radius, leftPoint.Y));
+                                    }
+                    
+                                    // 绘制右子树
+                                    if (root.right != null)
+                                    {
+                                        Point rightPoint = new Point(point.X + lDist, point.Y + rDist);
+                                        DrawTree(g, root.right, rightPoint);
+                                        g.DrawLine(new Pen(Color.Black), new Point(point.X + radius, point.Y), new Point(rightPoint.X - radius, rightPoint.Y));
+                                    }
+                                }
+                            }
+                    
+                            private void btnGenerat_Click(object sender, EventArgs e)
+                            {
+                                int iMin = 0;
+                                int iMax = 0;
+                                int iNodeCount = 0;
+                                string splitLine = "----------------------------------------";
+                    
+                                bst = new BinaryTree();
+                    
+                                int iNode;
+                                Random rd = new Random();
+                    
+                                lstNodeList.Items.Insert(0, splitLine);
+                    
+                                iMin = Convert.ToInt32(nudMin.Value);
+                                iMax = Convert.ToInt32(nudMax.Value);
+                                //for random max value need add 1 otherwise it will less than max value.
+                                iMax += 1;
+                    
+                                iNodeCount = Convert.ToInt32(nudNodeCount.Value); 
+                    
+                                int k = 0;
+                                while (k != iNodeCount)
+                                {
+                                    iNode = rd.Next(iMin, iMax);
+                    
+                                    if (bst.root != null)
+                                    {
+                                        if (!FindNode(iNode))
+                                        {
+                                            bst.insert(iNode);
+                                            lstNodeList.Items.Insert(0, iNode.ToString());
+                                            k++;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        bst.insert(iNode);
+                                        lstNodeList.Items.Insert(0, iNode.ToString());
+                                        k++;
+                                    }
+                                }
+                    
+                                //"\r\n"
+                                // V for root node, L for left node, R for right node.
+                                lstNodeList.Items.Insert(0, splitLine);
+                                lstNodeList.Items.Insert(0, "Inorder traversal - Left | Root | Right : ");//中序遍历 - L | V | R
+                                bst.inorderTraversal(bst.root);
+                                lstNodeList.Items.Insert(0, bst.inorderTraversalStr);
+                                //Console.WriteLine();
+                                lstNodeList.Items.Insert(0, splitLine);
+                                lstNodeList.Items.Insert(0, "Postorder traversal - Left | Right | Root : ");//后序遍历 - L | R | V
+                                bst.postorderTraversal(bst.root);
+                                lstNodeList.Items.Insert(0, bst.postorderTraversalStr);
+                                //Console.WriteLine();
+                                lstNodeList.Items.Insert(0, splitLine);
+                                lstNodeList.Items.Insert(0, "Preorder traversal - Root | Left | Right : ");//前序遍历 - V | L | R
+                                bst.preorderTraversal(bst.root);
+                                lstNodeList.Items.Insert(0, bst.preorderTraversalStr);
+                    
+                                if (nodePos.Count > 0)
+                                {
+                                    nodePos.Clear();
+                                }
+                                // Record node position.
+                                RecordNodePosition(0, bst.root, new Point(picCanvas.Width / 2, radius + 5));
+                    
+                                //Initial background.
+                                Point p = InitialCanvas();
+                    
+                                Bitmap canvas = DrawMap(p);
+                    
+                                //Draw picture.
+                                //DrawTree(gMain, bst.root, new Point(picCanvas.Width / 2, radius + 5));
+                    
+                                picCanvas.SizeMode = PictureBoxSizeMode.StretchImage;
+                                //Load picture to picture box.
+                                picCanvas.Image = canvas;
+                    
+                            }
+                    
+                            private void btnFind_Click(object sender, EventArgs e)
+                            {
+                                int searchValue = Convert.ToInt32(nudFind.Value);
+                    
+                                if (FindNode(searchValue))
+                                {
+                                    lstNodeList.Items.Insert(0, searchValue + " has found at " + bst.findNode(searchValue) + ".");
+                                }
+                                else
+                                {
+                                    lstNodeList.Items.Insert(0, searchValue + " did not find in the tree.");
+                                }
+                            }
+                    
+                            private bool FindNode(int iSNum)
+                            {
+                                bool bRet = false;
+                    
+                                Node foundNode = bst.findNode(iSNum);
+                                if (foundNode != null)
+                                {
+                                    bRet = true;//Found.
+                                }
+                                else
+                                {
+                                    bRet = false;
+                                }
+                    
+                                return bRet;
+                            }
+                    
+                            private void btnSave_Click(object sender, EventArgs e)
+                            {
+                                //Save picture.
+                                string strFile = ShowSaveFileDialog();
+                    
+                                if (strFile.Length > 0)
+                                {
+                                    picCanvas.Image.Save(strFile, ImageFormat.Png);
+                                    lstNodeList.Items.Insert(0, strFile + " saved!"); 
+                                }
+                            }
+                    
+                            #region 保存对话框
+                            private string ShowSaveFileDialog()
+                            {
+                                string localFilePath = "";
+                                string fileNameExt = "";
+                                string defaultFileName = "";
+                    
+                                //string localFilePath, fileNameExt, newFileName, FilePath; 
+                                SaveFileDialog sfd = new SaveFileDialog();
+                    
+                                //设置文件类型 
+                                sfd.Filter = "File（*.png）|*.png";
+                    
+                                //设置默认文件类型显示顺序 
+                                sfd.FilterIndex = 1;
+                    
+                                //保存对话框是否记忆上次打开的目录 
+                                sfd.RestoreDirectory = true;
+                    
+                                //设置默认的文件名
+                    
+                                sfd.DefaultExt = "*.png";// .DefaultFileName = "YourFileName";// in wpf is  sfd.FileName = "YourFileName";
+                    
+                                defaultFileName = PadLeftZero(DateTime.Now.Second.ToString()) + PadLeftZero(DateTime.Now.Minute.ToString()) + PadLeftZero(DateTime.Now.Hour.ToString())
+                                    + "-" + PadLeftZero(DateTime.Now.Day.ToString()) + PadLeftZero(DateTime.Now.Month.ToString()) + PadLeftZero(DateTime.Now.Year.ToString().Substring(2)) + ".png";
+                    
+                                sfd.FileName = defaultFileName;
+                                //点了保存按钮进入 
+                                if (sfd.ShowDialog() == DialogResult.OK)
+                                {
+                                    localFilePath = sfd.FileName.ToString(); //获得文件路径 
+                                    fileNameExt = localFilePath.Substring(localFilePath.LastIndexOf("\\") + 1); //获取文件名，不带路径
+                                }
+                    
+                                return localFilePath;
+                            }
+                            #endregion
+                            private string PadLeftZero(string inStr)
+                            {
+                                return inStr.Length < 2 ? inStr.PadLeft(2, '0') : inStr;
+                            }
+                    
+                        }
+                    }
+
+                </pre>
+            </article>
+        </section>
+        <hr />
+        <section class="main-section" id="Bubble Sort">
+            <header>Bubble Sort</header>
+            <article>
+                <pre>
+                    static void Sort(int[] nums)
+                    {
+                        int temp;
+                        for(int i=0; i<num.Length; i++)
+                        {
+                            for(int j=i+1; j<nums.Length; j++
+                            {
+                                if(nums[i] > nums[j])
+                                {
+                                    temp = nums[i];
+                                    nums[i] = nums[j];
+                                    nums[j] = temp;
+                                }
+                            }
+                            Console.WriteLine(nums[i]);
+                        }
+                    }
+                </pre>
+            </article>
+        </section>
+        <hr />
+        <section class="main-section" id="Quick Sort">
+            <header>Quick Sort</header>
+            <article>
+                <pre>
+                    private static void quicksort(int [] a,int left,int right)
+                    {
+                        int low=left;
+                        int high=right;
+                        //下面两句的顺序一定不能混,否则会产生数组越界! very important!
+                        if(low>high)
+                            return;
+                        int k=a[low];//取最左侧的一个作为衡量，最后要求左侧都比它小，右侧都比它大。
+                        while( low < high)
+                        {
+                            while( low < high && a[high] >=k )
+                            {
+                                high--;
+                            }
+                            //这样就找到第一个比它小的了
+                            a[low]=a[high];
+                            while( low < high && a[low] <= k )
+                            {
+                                low++;
+                            }
+                            a[high]=a[low];			
+                        }
+                        a[low]=k;
+                        quicksort(a, left, low-1);
+                        quicksort(a, low+1, right);		
+                    }
+                    
+                    //--------------------------
+                    quicksort(b, 0, b.Length-1);
+                </pre>
+            </article>
+        </section>
+        <hr />
+        <section class="main-section" id="Insert Sort">
+            <header>Insert Sort</header>
+            <article>
+                <pre>
+                    static int [] insertsort (int a[])
+                    {
+                        int team=0;
+                        for(int i=1;i<a.length;i++)
+                        {
+                            System.out.println(Arrays.toString(a));
+                            team=a[i];
+                            for(int j=i-1;j>=0;j--)
+                            {
+                                
+                                if(a[j]>team)
+                                {
+                                    a[j+1]=a[j];
+                                    a[j]=team;	
+                                }	
+                                else {
+                                    break;
+                                }
+                            }
+                        }
+                        return a;		
+                    }
+
+                </pre>
+            </article>
+        </section>
+        <hr />
+
+        <section class="main-section" id="Shell Sort">
+            <header>Shell Sort</header>
+            <article>
+                <pre>
+                    static int [] shellsort (int a[])
+                    {
+                        int d=a.length;
+                        int team=0;//临时变量
+                        for(;d>=1;d/=2)
+                        for(int i=d;i<a.length;i++)
+                        {
+                            
+                            System.out.println(Arrays.toString(a));
+                            team=a[i];
+                            for(int j=i-d;j>=0;j-=d)
+                            {				
+                                if(a[j]>team)
+                                {
+                                    a[j+d]=a[j];
+                                    a[j]=team;	
+                                }
+                                else {
+                                    break;
+                                }
+                            }
+                        }
+                        return a;		
+                    }
+                </pre>
+            </article>
+        </section>
+
+    </main>
+</body>
+
+</html>
