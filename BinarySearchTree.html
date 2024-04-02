@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Binary Tree" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>Binary Tree</title>
+</head>
+
+<body>
+    <nav id="navbar">
+        <header>Binary Tree</header>
+        <ul>
+            <li><a class="nav-link" href="#Node">Node define</a></li>
+            <li><a class="nav-link" href="#Binary Construction">Binary Construction</a></li>
+            <li><a class="nav-link" href="#Insert">Insert data</a></li>
+            <li><a class="nav-link" href="#Find">Find data</a></li>
+            <li><a class="nav-link" href="#Delete">Delete data</a></li>
+        </ul>
+    </nav>
+
+    <main id="main-doc">
+        <section class="main-section" id="Node">
+            <header>Node define</header>
+            <article>
+                <pre>
+                    private class Node
+                    {
+                        public int value;
+                        public Node left;
+                        public Node right;
+                 
+                        public Node(int value)
+                        {
+                            this.value = value;
+                            left = null;
+                            right = null;
+                        }
+                    }                
+                </pre>
+            </article>    
+        </section>
+        <section class="main-section" id="Binary Construction">
+            <header>Binary Construction</header>
+            <article>
+                <pre>
+                    public class BinaryTree
+                    {
+                        private Node root;
+
+                        public BinaryTree()
+                        {
+                            root = null;
+                        }
+                    }
+                </pre>
+            </article>
+        </section>
+        <hr>
+        <section class="main-section" id="Insert">
+            <header>Insert data</header>
+            <article>
+                <pre>
+                    public void Insert(int value)
+                    {
+                        root = InsertRecursive(root, value);
+                    }
+                   
+                    private Node InsertRecursive(Node current, int value)
+                    {
+                        if (current == null)
+                        {
+                            return new Node(value);
+                        }
+                   
+                        if (value < current.value)
+                        {
+                            current.left = InsertRecursive(current.left, value);
+                        }
+                        else if (value > current.value)
+                        {
+                            current.right = InsertRecursive(current.right, value);
+                        }
+                   
+                        return current;
+                    }
+                </pre>
+
+            </article>
+        </section>
+        <hr>
+        <section class="main-section" id="Find">
+            <header>Find data</header>
+            <article>
+                <pre>
+                    public bool Search(int value)
+                    {
+                        return SearchRecursive(root, value);
+                    }
+                  
+                    private bool SearchRecursive(Node current, int value)
+                    {
+                        if (current == null)
+                        {
+                            return false;
+                        }
+                  
+                        if (value == current.value)
+                        {
+                            return true;
+                        }
+                  
+                        if (value < current.value)
+                        {
+                            return SearchRecursive(current.left, value);
+                        }
+                        else
+                        {
+                            return SearchRecursive(current.right, value);
+                        }
+                    }
+            </pre>
+            </article>
+        </section>
+        <hr>
+        <section class="main-section" id="Delete">
+            <header>Delete data</header>
+            <article>
+                <pre>
+                    /*
+                    当我们删除一个节点时，有三种情况需要考虑： 
+                   
+                    1. 如果节点是叶子节点（没有子节点），我们可以直接删除它。 
+                    2. 如果节点有一个子节点，我们可以用其子节点替换该节点。 
+                    3. 如果节点有两个子节点，我们需要找到右子树中最小的节点（即右子树中最左边的节点），将其值复制到要删除的节点中，然后删除右子树中的最小节点。 
+                   
+                    在  Delete  方法中，我们首先判断要删除的值与当前节点值的关系，然后根据情况递归调用  DeleteRecursive  方法。具体步骤如下： 
+                   
+                    1. 如果要删除的值小于当前节点值，则递归调用左子树。 
+                    2. 如果要删除的值大于当前节点值，则递归调用右子树。 
+                    3. 如果要删除的值等于当前节点值，我们需要执行删除操作： 
+                       - 如果当前节点没有左子节点，则返回右子节点。 
+                       - 如果当前节点没有右子节点，则返回左子节点。 
+                       - 如果当前节点既有左子节点又有右子节点，我们找到右子树中最小的节点值，将其赋值给当前节点，然后递归调用右子树的删除操作，删除右子树中的最小节点。 
+                   
+                    这样就实现了二叉搜索树中节点的删除操作。希望这样解释能让您更好地理解删除节点的实现。
+                  
+                    */
+                    public void Delete(int value)
+                    {
+                        root = DeleteRecursive(root, value);
+                    }
+                  
+                    private Node DeleteRecursive(Node current, int value)
+                    {
+                        if (current == null)
+                        {
+                            return null;
+                        }
+                  
+                        if (value < current.value)
+                        {
+                            current.left = DeleteRecursive(current.left, value);
+                        }
+                        else if (value > current.value)
+                        {
+                            current.right = DeleteRecursive(current.right, value);
+                        }
+                        else
+                        {
+                            if (current.left == null)
+                            {
+                                return current.right;
+                            }
+                            else if (current.right == null)
+                            {
+                                return current.left;
+                            }
+                  
+                            current.value = MinValue(current.right);
+                            current.right = DeleteRecursive(current.right, current.value);
+                        }
+                  
+                        return current;
+                    }
+                  
+                    private int MinValue(Node node)
+                    {
+                        int minValue = node.value;
+                        while (node.left != null)
+                        {
+                            minValue = node.left.value;
+                            node = node.left;
+                        }
+                        return minValue;
+                    }
+                </pre>
+
+            </article>
+        </section>
+        <hr />
+
+    </main>
+</body>
+
+</html>
