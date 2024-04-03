@@ -130,19 +130,19 @@
                 <pre>
                     public static void InsertSort(int[] a) // 直接插入排序 - (3)
                     {
-                        //from vsc ai. 
-                        int n = a.Length;
-                        for (int i = 1; i < n; i++)
+                        for (int i = 1; i < a.Length; i++)
                         {
-                            int key = a[i];
-                            int j = i - 1;
-                        
-                            while (j >= 0 && a[j] > key)
+                            int temp = a[i];
+                            for (int j = i - 1; j >= 0; j--)
                             {
-                                a[j + 1] = a[j];
-                                j = j - 1;
+                                if (a[j] > temp)
+                                {
+                                    a[j + 1] = a[j];
+                                    a[j] = temp;
+                                }
+                                else
+                                    break;
                             }
-                            a[j + 1] = key;
                         }
                     }
             </pre>
